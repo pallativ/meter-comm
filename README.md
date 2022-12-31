@@ -1,1 +1,1 @@
-"# HES-LIS-MDP" 
+# This repo handles meter communication both on demand, online communication.
