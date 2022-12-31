@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+    <class name="com.hes.data.parser.vo.BillingData" table="BILLING_DATA" >
+        <composite-id name="id" class="com.hes.data.parser.vo.BillingDataId">
+            <key-property name="billingDatetime" type="java.sql.Timestamp">
+                <column name="BILLING_DATETIME" length="19"  />
+            </key-property>
+            <key-property name="meterSerialNumber" type="java.lang.String">
+                <column name="METER_SERIAL_NUMBER" length="45" />
+            </key-property>
+        </composite-id>
+        <property name="actEgyImp" type="java.lang.Double">
+            <column name="ACT_EGY_IMP"  precision="7"/>
+        </property>
+        <property name="actEgyExp" type="java.lang.Double">
+            <column name="ACT_EGY_EXP" precision="7" />
+        </property>
+        <property name="actEgyCombinedTotal" type="java.lang.Double">
+            <column name="ACT_EGY_COMBINED_TOTAL" precision="7" />
+        </property>
+        <property name="actEgyNetTotal" type="java.lang.Double">
+            <column name="ACT_EGY_NET_TOTAL" precision="7" />
+        </property>
+        <property name="appEgyImp" type="java.lang.Double">
+            <column name="APP_EGY_IMP" precision="7" />
+        </property>
+        <property name="appEgyExp" type="java.lang.Double">
+            <column name="APP_EGY_EXP" precision="7" />
+        </property>
+        <property name="actEgyImpRt1" type="java.lang.Double">
+            <column name="ACT_EGY_IMP_RT_1" precision="7" />
+        </property>
+        <property name="actEgyImpRt2" type="java.lang.Double">
+            <column name="ACT_EGY_IMP_RT_2"  precision="7"/>
+        </property>
+        <property name="actEgyImpRt3" type="java.lang.Double">
+            <column name="ACT_EGY_IMP_RT_3" precision="7" />
+        </property>
+        <property name="actEgyImpRt4" type="java.lang.Double">
+            <column name="ACT_EGY_IMP_RT_4" precision="7" />
+        </property>
+        <property name="actEgyExpRt1" type="java.lang.Double">
+            <column name="ACT_EGY_EXP_RT_1" precision="7" />
+        </property>
+        <property name="actEgyExpRt2" type="java.lang.Double">
+            <column name="ACT_EGY_EXP_RT_2" precision="7" />
+        </property>
+        <property name="actEgyExpRt3" type="java.lang.Double">
+            <column name="ACT_EGY_EXP_RT_3" precision="7" />
+        </property>
+        <property name="actEgyExpRt4" type="java.lang.Double">
+            <column name="ACT_EGY_EXP_RT_4" precision="7" />
+        </property>
+        <property name="appEgyImpRt1" type="java.lang.Double">
+            <column name="APP_EGY_IMP_RT_1" precision="7" />
+        </property>
+        <property name="appEgyImpRt2" type="java.lang.Double">
+            <column name="APP_EGY_IMP_RT_2" precision="7" />
+        </property>
+        <property name="appEgyImpRt3" type="java.lang.Double">
+            <column name="APP_EGY_IMP_RT_3" precision="7" />
+        </property>
+        <property name="appEgyImpRt4" type="java.lang.Double">
+            <column name="APP_EGY_IMP_RT_4" precision="7" />
+        </property>
+        <property name="appEgyExpRt1" type="java.lang.Double">
+            <column name="APP_EGY_EXP_RT_1" precision="7" />
+        </property>
+        <property name="appEgyExpRt2" type="java.lang.Double">
+            <column name="APP_EGY_EXP_RT_2" precision="7" />
+        </property>
+        <property name="appEgyExpRt3" type="java.lang.Double">
+            <column name="APP_EGY_EXP_RT_3" precision="7" />
+        </property>
+        <property name="appEgyExpRt4" type="java.lang.Double">
+            <column name="APP_EGY_EXP_RT_4" precision="7" />
+        </property>
+        <property name="actEgyCombTotRt1" type="java.lang.Double">
+            <column name="ACT_EGY_COMB_TOT_RT_1" precision="7" />
+        </property>
+        <property name="actEgyCombTotRt2" type="java.lang.Double">
+            <column name="ACT_EGY_COMB_TOT_RT_2" precision="7" />
+        </property>
+        <property name="actEgyCombTotRt3" type="java.lang.Double">
+            <column name="ACT_EGY_COMB_TOT_RT_3" precision="7" />
+        </property>
+        <property name="actEgyCombTotRt4" type="java.lang.Double">
+            <column name="ACT_EGY_COMB_TOT_RT_4" precision="7" />
+        </property>
+        <property name="actEgyNetTotRt1" type="java.lang.Double">
+            <column name="ACT_EGY_NET_TOT_RT_1" precision="7"/>
+        </property>
+        <property name="actEgyNetTotRt2" type="java.lang.Double">
+            <column name="ACT_EGY_NET_TOT_RT_2" precision="7" />
+        </property>
+        <property name="actEgyNetTotRt3" type="java.lang.Double">
+            <column name="ACT_EGY_NET_TOT_RT_3" precision="7" />
+        </property>
+        <property name="actEgyNetTotRt4" type="java.lang.Double">
+            <column name="ACT_EGY_NET_TOT_RT_4" precision="7" />
+        </property>
+        <property name="maxDmdReg1ActEgyImp" type="java.lang.Double">
+            <column name="MAX_DMD_REG_1_ACT_EGY_IMP" precision="7" />
+        </property>
+        <property name="maxDmdReg1ActEgyImpTime" type="java.sql.Timestamp">
+            <column name="MAX_DMD_REG_1_ACT_EGY_IMP_TIME"  length="19"  />
+        </property>
+        <property name="maxDmdReg6ActEgyExp" type="java.lang.Double">
+            <column name="MAX_DMD_REG_6_ACT_EGY_EXP" precision="7" />
+        </property>
+        <property name="maxDmdReg6ActEgyExpTime" type="java.sql.Timestamp">
+            <column name="MAX_DMD_REG_6_ACT_EGY_EXP_TIME" length="19"  />
+        </property>
+        <property name="appMdImp" type="java.lang.Double">
+            <column name="APP_MD_IMP" precision="7" />
+        </property>
+        <property name="appMdImpOccurringTime" type="java.sql.Timestamp">
+            <column name="APP_MD_IMP_OCCURRING_TIME" length="19"  />
+        </property>
+        <property name="appMdExp" type="java.lang.Double">
+            <column name="APP_MD_EXP" precision="7" />
+        </property>
+        <property name="appMdExpOccurringTime" type="java.sql.Timestamp">
+            <column name="APP_MD_EXP_OCCURRING_TIME" length="19"  />
+        </property>
+        <property name="modifiedDatetime" type="java.sql.Timestamp">
+            <column name="MODIFIED_DATETIME" length="19"  />
+        </property>
+        <property name="billingDatetimeIst" type="java.sql.Timestamp">
+            <column name="BILLING_DATETIME_IST" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>
