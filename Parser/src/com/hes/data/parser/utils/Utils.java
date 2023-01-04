@@ -1,15 +1,12 @@
 package com.hes.data.parser.utils;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 
-import com.hes.data.parser.vo.InstantData;
 
 /**
  *
@@ -19,7 +16,7 @@ import com.hes.data.parser.vo.InstantData;
 public class Utils {
 
     public Map<String, String> readProperties(String fileName) {
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         try {
             String workingDir = System.getProperty("user.dir");
             File configFilePath = new File(workingDir, fileName);
