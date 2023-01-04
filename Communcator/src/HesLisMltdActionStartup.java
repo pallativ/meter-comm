@@ -148,10 +148,8 @@ public class HesLisMltdActionStartup {
 		}catch (Exception e) {
 			System.out.println("Error in starting Application");
 			e.printStackTrace();
-		}
-		
+		}	
 	}
-
 }
 
 

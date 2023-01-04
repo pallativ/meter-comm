@@ -48,7 +48,7 @@ public class EventsAction {
         String response = null;
         String command = null;
 
-        List<String> scalarHeaderFinal = new ArrayList<String>();
+        List<String> scalarHeaderFinal = new ArrayList<>();
         List<String> scalarDataFinal = new ArrayList<String>();
         try {
             List<String> scalarHeaderList = new ArrayList<String>();
@@ -1028,7 +1028,8 @@ public class EventsAction {
             LogUtils.appendLoggerDetails(logger, className, methodName, "OBIS DATA COMMAND : " + obisDataCommand);
             List<String> obisDataList = tcpCommObj.receiveCompleteData(in, toClient, sleepSeconds, obisDataCommand, meterNumber, logger);
 
-            String scalarDataStr = fetchScalarData(scalarFolder, meterNumber, "fetchPowerQualityEvents", in, toClient, obisheaderList, sleepSeconds, logger);
+            
+            String scalarDataStr = fetchScalarData(null, meterNumber, "fetchPowerQualityEvents", in, toClient, obisheaderList, sleepSeconds, logger);
 
             LogUtils.appendLoggerDetails(logger, className, methodName, "requestType : " + requestType);
 

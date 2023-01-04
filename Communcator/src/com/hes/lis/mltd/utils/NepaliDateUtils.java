@@ -129,11 +129,11 @@ public class NepaliDateUtils {
 	public void setCurrentDate(Date dNow) throws Exception{
 		//Setting current english Date
 	    SimpleDateFormat ft = new SimpleDateFormat("yyyy");
-		int y = new Integer(ft.format(dNow));
+		int y = Integer.parseInt(ft.format(dNow));
 	    ft = new SimpleDateFormat("MM");
-	    int m = new Integer(ft.format(dNow));
+	    int m = Integer.parseInt(ft.format(dNow));
 	    ft = new SimpleDateFormat("dd");
-	    int d = new Integer(ft.format(dNow));
+	    int d = Integer.parseInt(ft.format(dNow));
 	    
 		setEnglishDate(y,m,d);
 	}
@@ -236,11 +236,11 @@ public class NepaliDateUtils {
 		//Setting current english Date
 		Date dNow = new Date();
 	    SimpleDateFormat ft = new SimpleDateFormat("yyyy");
-		int y = new Integer(ft.format(dNow));
+		int y = Integer.parseInt(ft.format(dNow));
 	    ft = new SimpleDateFormat("MM");
-	    int m = new Integer(ft.format(dNow));
+	    int m = Integer.parseInt(ft.format(dNow));
 	    ft = new SimpleDateFormat("dd");
-	    int d = new Integer(ft.format(dNow));
+	    int d = Integer.parseInt(ft.format(dNow));
 	    
 		setEnglishDate(y,m,d);
 	}
@@ -248,11 +248,11 @@ public class NepaliDateUtils {
 	public void assignDate(Date dNow) throws Exception{
 		//Setting current english Date
 	    SimpleDateFormat ft = new SimpleDateFormat("yyyy");
-		int y = new Integer(ft.format(dNow));
+		int y = Integer.parseInt(ft.format(dNow));
 	    ft = new SimpleDateFormat("MM");
-	    int m = new Integer(ft.format(dNow));
+	    int m = Integer.parseInt(ft.format(dNow));
 	    ft = new SimpleDateFormat("dd");
-	    int d = new Integer(ft.format(dNow));
+	    int d = Integer.parseInt(ft.format(dNow));
 		setEnglishDate(y,m,d);
 	}
 	
