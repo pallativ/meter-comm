@@ -25,7 +25,7 @@ import com.hes.data.parser.vo.InstantDataId;
 public class InstantDataParser {
 
 	public List<String> processInstantObisData(String obisData) {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		try {
 
 			String[] strArr = obisData.split(" ");
