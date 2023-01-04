@@ -19,7 +19,7 @@ import com.hes.data.parser.utils.HexToStringUtils;
 public class DataProcessorAction {
 
 	public List<String> processObisHeaderData(String obisHeader) {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		try {
 
 			String[] strArr = obisHeader.split(" ");

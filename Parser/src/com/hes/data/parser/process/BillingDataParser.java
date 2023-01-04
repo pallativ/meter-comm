@@ -23,7 +23,7 @@ public class BillingDataParser {
 	
 	
 	public List<String> processBillingObisData(String obisData){
-		List<String> list=new ArrayList<String>();
+		List<String> list=new ArrayList<>();
 		try{
 			
 			String[] framesArr=obisData.split("\n");
