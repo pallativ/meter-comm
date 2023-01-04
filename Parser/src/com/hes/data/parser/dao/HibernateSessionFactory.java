@@ -68,9 +68,8 @@ public class HibernateSessionFactory {
         try {
             configuration.configure(configFile);
             sessionFactory = configuration.buildSessionFactory();
-        } catch (Exception e) {
-            System.err
-                    .println("%%%% Error Creating SessionFactory %%%%");
+        } catch (HibernateException e) {
+            System.err.println("%%%% Error Creating SessionFactory %%%%");
             e.printStackTrace();
         }
     }
@@ -92,6 +91,7 @@ public class HibernateSessionFactory {
     /**
      * return session factory
      *
+     * @return 
      */
     public static org.hibernate.SessionFactory getSessionFactory() {
         return sessionFactory;
@@ -100,7 +100,8 @@ public class HibernateSessionFactory {
     /**
      * return session factory
      *
-     * session factory will be rebuilded in the next call
+     * session factory will be rebuild in the next call
+     * @param configFile
      */
     public static void setConfigFile(String configFile) {
         HibernateSessionFactory.configFile = configFile;
@@ -110,6 +111,7 @@ public class HibernateSessionFactory {
     /**
      * return hibernate configuration
      *
+     * @return 
      */
     public static Configuration getConfiguration() {
         return configuration;
