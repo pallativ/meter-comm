@@ -81,11 +81,15 @@ public class Utils {
     public static String GetDataRecord(String framesAsString) {
         var dataRecords = framesAsString.split("\n");
         StringBuilder sb = new StringBuilder();
+        var lastRecordIndex = dataRecords.length;
         for (String dataRecord : dataRecords) {
             String[] record = dataRecord.split(" ");
-            //var dataLength = Integer.parseInt(record[18] + record[19], 16);
-            var temp = String.join(" ", Arrays.copyOfRange(record, 20, record.length - 2));
+            var from = 20;
+            if(lastRecordIndex == 1)
+                from = 18;
+            var temp = String.join(" ", Arrays.copyOfRange(record, from, record.length - 2));
             sb.append(temp).append(" ");
+            --lastRecordIndex;
         }
         return sb.toString();
     }
