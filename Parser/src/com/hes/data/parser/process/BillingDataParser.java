@@ -445,7 +445,9 @@ public class BillingDataParser {
             String obisData = ReadData(fileName);
             var result = ParserService.GetParameters(obisData, false);
             var obisCodes = ParserService.GetObisCodes(ReadOBISCodesData(fileName));
-            MergeObisCodes(obisCodes, result);
+            var mergeResult = MergeObisCodes(obisCodes, result);
+            ConvertToReadable(mergeResult);
+            System.out.println(mergeResult);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -484,6 +486,24 @@ public class BillingDataParser {
             mergeResult.put(recordIndex++, resultBilling);
         }
         return mergeResult;
+    }
+
+    private static void ConvertToReadable(HashMap<Integer, ArrayList<MeterParameter>> mergeResult) {
+        for (Map.Entry<Integer, ArrayList<MeterParameter>> billingRecord : mergeResult.entrySet()) {
+            for (MeterParameter meterParameter : billingRecord.getValue()) {
+                switch (meterParameter.getDataType()) {
+                    case 9 -> {
+                        var dateTime = HexToStringUtils.convertDateTime(meterParameter.getHexValue());
+                        meterParameter.setValue(dateTime);
+                    }
+                    case 6, 5 -> {
+                        var value = Utils.ToLongFromHex(meterParameter.getHexValue().split(" "));
+                        meterParameter.setValue(String.valueOf(value));
+                    }
+                    default -> throw new AssertionError();
+                }
+            }
+        }
     }
 
 }
