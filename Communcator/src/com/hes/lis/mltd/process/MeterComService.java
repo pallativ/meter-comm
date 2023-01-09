@@ -78,8 +78,8 @@ public class MeterComService {
         }
     }
 
-    public void process(Socket socketObj, Properties prop) {
-        String methodName = "processCommunication";
+    public void process(Socket socket, Properties properties) {
+        String methodName = "process";
 
         DataInputStream in = null;
         DataOutputStream toClient = null;
@@ -104,9 +104,9 @@ public class MeterComService {
 
             System.out.println(new Date() + "--->" + "(TCP COM STATUS : METER - HES SERVER COMMUNICATION ESTABLISHED)");
 
-            socketObj.setSoTimeout(20000);
-            toClient = new DataOutputStream(socketObj.getOutputStream());
-            in = new DataInputStream(socketObj.getInputStream());
+            socket.setSoTimeout(20000);
+            toClient = new DataOutputStream(socket.getOutputStream());
+            in = new DataInputStream(socket.getInputStream());
 
             System.out.println(new CommunicationUtils().readAllBytes(in, null, sleepSeconds));
 //			processTampers(in, sleepSeconds, meterNumber, logger, tcpComm);
