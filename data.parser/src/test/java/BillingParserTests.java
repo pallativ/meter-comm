@@ -3,8 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
  */
 
+import com.coralinnovations.data.parser.models.BillingRecord;
 import com.coralinnovations.data.parser.models.MeterParameter;
 import com.coralinnovations.data.parser.services.BillingDataParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,16 +64,19 @@ public class BillingParserTests {
     //
     @Test
     public void ParseBillingData() throws IOException, Exception {
-        var fileName = "C:\\Users\\Veera\\source\\repos\\MeterComm\\MRD\\20417916_BILL_2041791603012023225230545_S.MD";
+        var fileName = "C:\\Users\\Veera\\source\\repos\\MeterComm\\MRD\\\\20417972_BILL_2041797203012023225516511_S.MD";
         ParseBilling(fileName);
     }
 
     private void ParseBilling(String fileName) throws IOException, Exception {
         var billingParserService = new BillingDataParser(fileName);
         var result = billingParserService.Parse();
-        for (Map.Entry<Integer, ArrayList<MeterParameter>> billingRecord : result.entrySet()) {
-            System.out.println("Billing Record:" + billingRecord.getKey());
-            for (MeterParameter meterParameter : billingRecord.getValue()) {
+        File file = new File("C:\\Sample.json");
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(file, result);
+        for (BillingRecord billingRecord : result) {
+            System.out.println("Billing Record:" + billingRecord.getIndex());
+            for (MeterParameter meterParameter : billingRecord.getParameters()) {
                 assertNotNull(meterParameter.getCode(), "FileName:" + fileName);
                 assertNotNull(meterParameter.getHexValue());
                 assertNotNull(meterParameter.getValue());
@@ -86,7 +91,6 @@ public class BillingParserTests {
         var successFiles = new ArrayList<String>();
         for (File billingFile : billingFiles) {
             try {
-
                 var billingParserService = new BillingDataParser(billingFile.getAbsolutePath());
                 var result = billingParserService.Parse();
                 successFiles.add(billingFile.getAbsolutePath());
@@ -100,5 +104,6 @@ public class BillingParserTests {
         for (String failedFile : failedFiles) {
             System.out.println("Failed: " + failedFile);
         }
+        assertEquals(0, failedFiles.size());
     }
 }

@@ -3,6 +3,7 @@
  */
 package com.coralinnovations.data.parser.services;
 
+import com.coralinnovations.data.parser.models.BillingRecord;
 import com.coralinnovations.data.parser.models.MeterParameter;
 import com.coralinnovations.data.parser.models.Parameter;
 import com.coralinnovations.data.parser.utils.DlmsObjectConvert;
@@ -28,21 +29,39 @@ public class BillingDataParser {
         this.mrdFilePath = mrdFilePath;
     }
 
-    public HashMap<Integer, ArrayList<MeterParameter>> Parse() throws IOException, Exception {
-        String data = ReadData(mrdFilePath);
-        String obisCodesData = ReadCodes(mrdFilePath);
-        var result = BaseParserService.GetParameters(data, false);
-        var obisCodes = BaseParserService.GetObisCodes(obisCodesData);
-        var mergeResult = MergeObisCodes(obisCodes, result);
+    public ArrayList<BillingRecord> Parse() throws IOException, Exception {
+        String obisCodes = ReadData(mrdFilePath, "OBISCODES");
+        var bytes = obisCodes.split(" ");
+        bytes = Arrays.copyOfRange(bytes, 12, bytes.length - 2);
+        obisCodes = String.join(" ", bytes);
+        var obisCodesCollection = BaseParserService.GetObisCodes(obisCodes);
+
+        String obisCodesData = ReadData(mrdFilePath, "OBISDATA");
+        var dataCollection = BaseParserService.GetParameters(obisCodesData, false);
+
+        // This commented for now, to make it functional.
+//        String scalerCodes = ReadData(mrdFilePath, "SCALAROBISCODES");
+//        bytes = scalerCodes.split(" ");
+//        bytes = Arrays.copyOfRange(bytes, 20, bytes.length - 2);
+//        scalerCodes = String.join(" ", bytes);
+//        var scalarCodeCollection = BaseParserService.GetObisCodes(scalerCodes);
+//
+//        String scalerCodesData = ReadData(mrdFilePath, "SCALAROBISDATA");
+//        bytes = scalerCodesData.split(" ");
+//        bytes = Arrays.copyOfRange(bytes, 20, bytes.length - 2);
+//        scalerCodesData = String.join(" ", bytes);
+//        var scalarCodeDataCollection = BaseParserService.GetObisCodes(scalerCodesData);
+        var mergeResult = MergeObisCodes(obisCodesCollection, dataCollection);
         ConvertToReadable(mergeResult);
         return mergeResult;
     }
 
-    private static String ReadData(String fileName) throws IOException {
+    private static String ReadData(String fileName, String xmlTagName) throws IOException {
         File dataFile = new File(fileName);
         String fileData = FileUtils.readFileToString(dataFile, Charset.defaultCharset());
-        String obisData = StringUtils.substringBetween(fileData, "<OBISDATA>\n",
-                "\n</OBISDATA>");
+        var openTag = "<" + xmlTagName + ">\n";
+        var closeTag = "\n</" + xmlTagName + ">";
+        String obisData = StringUtils.substringBetween(fileData, openTag, closeTag);
         return obisData;
     }
 
@@ -55,27 +74,28 @@ public class BillingDataParser {
         return String.join(" ", Arrays.copyOfRange(bytes, 12, bytes.length - 2));
     }
 
-    private static HashMap<Integer, ArrayList<MeterParameter>> MergeObisCodes(ArrayList<Parameter> obisCodes, HashMap<Integer, ArrayList<Parameter>> billingRecords) {
+    private static ArrayList<BillingRecord> MergeObisCodes(ArrayList<Parameter> obisCodes, HashMap<Integer, ArrayList<Parameter>> billingRecords) {
         Integer recordIndex = 0;
-        var mergeResult = new HashMap<Integer, ArrayList<MeterParameter>>();
+        var mergeResult = new ArrayList<BillingRecord>();
+        int billingRecordIndex = 1;
         for (Map.Entry<Integer, ArrayList<Parameter>> billingRecord : billingRecords.entrySet()) {
-            var resultBilling = new ArrayList<MeterParameter>();
+            var billingParameters = new ArrayList<MeterParameter>();
             int index = 0;
             for (var parameter : billingRecord.getValue()) {
                 var meterParameter = new MeterParameter();
                 meterParameter.setCode(obisCodes.get(index++).getHexValue());
                 meterParameter.setHexValue(parameter.getHexValue());
                 meterParameter.setDataType(parameter.getDataType());
-                resultBilling.add(meterParameter);
+                billingParameters.add(meterParameter);
             }
-            mergeResult.put(recordIndex++, resultBilling);
+            mergeResult.add(new BillingRecord(billingRecordIndex++, billingParameters));
         }
         return mergeResult;
     }
 
-    private static void ConvertToReadable(HashMap<Integer, ArrayList<MeterParameter>> mergeResult) {
-        for (Map.Entry<Integer, ArrayList<MeterParameter>> billingRecord : mergeResult.entrySet()) {
-            for (MeterParameter meterParameter : billingRecord.getValue()) {
+    private static void ConvertToReadable(ArrayList<BillingRecord> mergeResult) {
+        for (BillingRecord billingRecord : mergeResult) {
+            for (MeterParameter meterParameter : billingRecord.getParameters()) {
                 switch (meterParameter.getDataType()) {
                     case 9 -> {
                         var dateTime = DlmsObjectConvert.toDateTime(meterParameter.getHexValue());

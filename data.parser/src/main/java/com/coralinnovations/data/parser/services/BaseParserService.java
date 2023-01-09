@@ -49,19 +49,22 @@ public class BaseParserService {
         return result;
     }
 
+    private static boolean IsLastRecord(String[] bytes) {
+        return bytes[11].equals("01") && bytes[17].equals("70");
+    }
+
     private static String GetDataRecord(String framesAsString, boolean errorFlag) {
         var dataRecords = framesAsString.split("\n");
         StringBuilder sb = new StringBuilder();
-        var lastRecordIndex = dataRecords.length;
         for (String dataRecord : dataRecords) {
             String[] record = dataRecord.split(" ");
             var from = 20;
-            if (lastRecordIndex == 1 && errorFlag == true) {
+            // NOTE: This is based on traces provided by customer traces.
+            if (IsLastRecord(record)) {
                 from = 18;
             }
             var temp = String.join(" ", Arrays.copyOfRange(record, from, record.length - 2));
             sb.append(temp).append(" ");
-            --lastRecordIndex;
         }
         return sb.toString();
     }

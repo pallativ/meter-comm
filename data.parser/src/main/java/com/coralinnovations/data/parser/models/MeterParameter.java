@@ -4,13 +4,17 @@
  */
 package com.coralinnovations.data.parser.models;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Veera
  */
 public class MeterParameter {
+
     private int dataType;
     private String code;
+    private String obisCode;
     private String hexValue;
     private String value;
     private String unit;
@@ -64,10 +68,25 @@ public class MeterParameter {
         this.scalar = Scalar;
     }
 
+    public String getObisCode() {
+        if (obisCode == null) {
+            obisCode = ConvertObisCode(code);
+        }
+        return obisCode;
+    }
+
+    private String ConvertObisCode(String code) {
+        var bytes = code.split(" ");
+        var result = new ArrayList<String>();
+        for (String aByte : bytes) {
+            result.add(String.valueOf(Integer.parseInt(aByte, 16)));
+        }
+        return String.join(".", result);
+    }
+
     @Override
     public String toString() {
-        return "MeterParameter{" + "DataType=" + dataType + ", Code=" + code + ", HexValue=" + hexValue + ", Value=" + value + ", Unit=" + unit + ", Scalar=" + scalar + '}';
+        return "MeterParameter{" + "dataType=" + dataType + ", code=" + code + ", hexValue=" + hexValue + ", obisCode=" + obisCode + ", value=" + value + ", unit=" + unit + ", scalar=" + scalar + '}';
     }
-    
-    
+
 }
