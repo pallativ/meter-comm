@@ -1,12 +1,12 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
-package com.coralinnovations.data.parser.services;
+package com.coral.dlms.data.parser.services;
 
-import com.coralinnovations.data.parser.models.BillingRecord;
-import com.coralinnovations.data.parser.models.MeterParameter;
-import com.coralinnovations.data.parser.models.Parameter;
-import com.coralinnovations.data.parser.utils.DlmsObjectConvert;
+import com.coral.dlms.data.parser.models.BillingRecord;
+import com.coral.dlms.data.parser.models.MeterParameter;
+import com.coral.dlms.data.parser.models.Parameter;
+import com.coral.dlms.data.parser.utils.DlmsObjectConvert;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;

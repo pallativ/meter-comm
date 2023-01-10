@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.coralinnovations.data.parser.utils;
+package com.coral.dlms.data.parser.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+
 
 /**
  *
@@ -19,12 +20,12 @@ public class DlmsObjectConvert {
         try {
 
             String[] responseArr = dateStr.split(" ");
-            Integer year = Integer.parseInt(responseArr[0] + responseArr[1], 16);
-            Integer month = Integer.parseInt(responseArr[2], 16);
-            Integer day = Integer.parseInt(responseArr[3], 16);
+            Integer year = Integer.valueOf(responseArr[0] + responseArr[1], 16);
+            Integer month = Integer.valueOf(responseArr[2], 16);
+            Integer day = Integer.valueOf(responseArr[3], 16);
 
-            Integer hour = Integer.parseInt(responseArr[5], 16);
-            Integer minutes = Integer.parseInt(responseArr[6], 16);
+            Integer hour = Integer.valueOf(responseArr[5], 16);
+            Integer minutes = Integer.valueOf(responseArr[6], 16);
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
 

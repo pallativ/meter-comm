@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.coralinnovations.data.parser.services;
+package com.coral.dlms.data.parser.services;
 
-import com.coralinnovations.data.parser.models.DataPointer;
-import com.coralinnovations.data.parser.models.Parameter;
+import com.coral.dlms.data.parser.models.DataPointer;
+import com.coral.dlms.data.parser.models.Parameter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 
 /**
  *
@@ -17,7 +17,7 @@ import org.apache.commons.lang.NotImplementedException;
  */
 public class BaseParserService {
 
-    private static boolean enableTraces = false;
+    private static final boolean EnableTraces = false;
 
     public static HashMap<Integer, ArrayList<Parameter>> GetParameters(String framesAsString, boolean errorFlag) throws Exception {
         var completeData = GetDataRecord(framesAsString, errorFlag);
@@ -32,14 +32,14 @@ public class BaseParserService {
         dataPointer.setIndex(1);
         dataPointer.setNoOfObjects(0);
         var noOfRecords = Integer.parseInt(bytes[dataPointer.getAndIncrement()], 16);
-        if (enableTraces) {
+        if (EnableTraces) {
             System.out.println("# Records:" + noOfRecords);
         }
         for (int i = 0; i < noOfRecords; i++) {
             var objectType = Integer.parseInt(bytes[dataPointer.getAndIncrement()], 16);
             var noOfObjectsInRecord = Integer.parseInt(bytes[dataPointer.getAndIncrement()], 16);
             dataPointer.setNoOfObjects(noOfObjectsInRecord);
-            if (enableTraces) {
+            if (EnableTraces) {
                 System.out.println("Record #:" + i);
                 System.out.println("Object Type:" + objectType);
             }
@@ -76,14 +76,14 @@ public class BaseParserService {
         dataPointer.setIndex(1);
         dataPointer.setNoOfObjects(0);
         var noOfRecords = Integer.parseInt(bytes[dataPointer.getAndIncrement()], 16);
-        if (enableTraces) {
+        if (EnableTraces) {
             System.out.println("# Records:" + noOfRecords);
         }
         for (int i = 0; i < noOfRecords; i++) {
             var complexObjectType = Integer.parseInt(bytes[dataPointer.getAndIncrement()], 16);
             var noOfObjectsInRecord = Integer.parseInt(bytes[dataPointer.getAndIncrement()], 16);
             dataPointer.setNoOfObjects(noOfObjectsInRecord);
-            if (enableTraces) {
+            if (EnableTraces) {
                 System.out.println("Record #:" + i);
                 System.out.println("Object Type:" + complexObjectType);
                 System.out.println("# Objects in a record:" + noOfObjectsInRecord);
@@ -110,7 +110,7 @@ public class BaseParserService {
                     parameter.setDataType(dataType);
                     parameter.setHexValue(String.join(" ", valueBytes));
                     result.add(parameter);
-                    if (enableTraces) {
+                    if (EnableTraces) {
                         System.out.println(dataType + " " + String.join(" ", valueBytes));
                     }
                     numberOfExtracted = noOfBytes;
@@ -123,7 +123,7 @@ public class BaseParserService {
                     var parameter = new Parameter();
                     parameter.setDataType(dataType);
                     parameter.setHexValue(String.join(" ", valueBytes));
-                    if (enableTraces) {
+                    if (EnableTraces) {
                         System.out.println("Data Type:" + dataType + " ,Length:" + noOfBytes + " ,HEX:" + String.join(" ", valueBytes));
                     }
                     numberOfExtracted = noOfBytes;
