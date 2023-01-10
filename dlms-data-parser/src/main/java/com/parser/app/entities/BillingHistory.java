@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entities;
+package com.parser.app.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -65,4 +65,10 @@ public class BillingHistory {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    @Override
+    public String toString() {
+        return "BillingHistory{" + "id=" + id + ", meterNumber=" + meterNumber + ", billingMonth=" + billingMonth + ", updatedAt=" + updatedAt + '}';
+    }
+    
 }

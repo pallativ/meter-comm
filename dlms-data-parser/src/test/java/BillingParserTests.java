@@ -3,9 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
  */
 
-import models.BillingRecord;
-import models.MeterParameter;
-import services.BillingDataParser;
+import com.parser.app.models.BillingRecord;
+import com.parser.app.models.MeterParameter;
+import com.parser.app.services.BillingDataParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;

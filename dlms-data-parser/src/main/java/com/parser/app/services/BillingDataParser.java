@@ -1,12 +1,12 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
-package services;
+package com.parser.app.services;
 
-import models.BillingRecord;
-import models.MeterParameter;
-import models.Parameter;
-import utils.DlmsObjectConvert;
+import com.parser.app.models.BillingRecord;
+import com.parser.app.models.MeterParameter;
+import com.parser.app.models.Parameter;
+import com.parser.app.utils.DlmsObjectConvert;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;

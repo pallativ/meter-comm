@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.coral.dlms.data.parser.utils;
+package com.parser.app.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
