@@ -3,9 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
  */
 
-import com.coral.dlms.data.parser.models.BillingRecord;
-import com.coral.dlms.data.parser.models.MeterParameter;
-import com.coral.dlms.data.parser.services.BillingDataParser;
+import models.BillingRecord;
+import models.MeterParameter;
+import services.BillingDataParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
