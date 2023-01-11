@@ -4,6 +4,8 @@
  */
 package com.parser.app.models;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -52,10 +54,25 @@ public class BillingHistoryModel {
                 .findFirst();
     }
 
-    public Long getLongValue(String obisHexCode) {
+    public Long getLongValue(String obisHexCode) throws Exception {
         var parameter = this.parameters.stream()
                 .filter(model -> model.getCode().equals(obisHexCode.toUpperCase()))
                 .findFirst();
+        if (parameter.isEmpty()) {
+            throw new Exception("OBIS code not present: " + obisHexCode);
+        }
         return Long.valueOf(parameter.get().getValue());
+    }
+
+    public LocalDateTime getDateTime(String obisHexCode) throws Exception {
+        var parameter = this.parameters.stream()
+                .filter(model -> model.getCode().equals(obisHexCode.toUpperCase()) && model.getDataType() == 9)
+                .findFirst();
+        if (parameter.isEmpty()) {
+            throw new Exception("OBIS code not present: " + obisHexCode);
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime dateTime = LocalDateTime.parse(parameter.get().getValue(), formatter);
+        return dateTime;
     }
 }

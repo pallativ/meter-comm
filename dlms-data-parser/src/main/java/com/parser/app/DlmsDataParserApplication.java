@@ -4,6 +4,7 @@ import com.parser.app.models.BillingHistoryModel;
 import com.parser.app.repositories.BillingHistoryRepository;
 import com.parser.app.parsers.BillingDataParserImpl;
 import com.parser.app.services.BillingDataService;
+import java.io.File;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -24,8 +25,20 @@ public class DlmsDataParserApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        var fileName = "C:\\Users\\Veera\\source\\repos\\MeterComm\\MRD\\\\20417406_BILL_2041740603012023225648963_S.MD";
-        billingDataService.Process(fileName);
+
+        var billingFiles = new File("C:\\Users\\Veera\\source\\repos\\MeterComm\\MRD\\").listFiles();
+        var failedFiles = new ArrayList<String>();
+        var successFiles = new ArrayList<String>();
+        for (File billingFile : billingFiles) {
+            try {
+                billingDataService.Process(billingFile.getAbsolutePath());
+                successFiles.add(billingFile.getAbsolutePath());
+            } catch (Exception ex) {
+                failedFiles.add(billingFile.getAbsolutePath());
+            }
+        }
+        //var fileName = "C:\\Users\\Veera\\source\\repos\\MeterComm\\MRD\\\\20417406_BILL_2041740603012023225648963_S.MD";
+        //billingDataService.Process(fileName);
     }
 
 }

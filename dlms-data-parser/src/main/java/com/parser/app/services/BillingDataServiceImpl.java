@@ -45,61 +45,58 @@ public class BillingDataServiceImpl implements BillingDataService {
         }
     }
 
-    private BillingHistory Transform(BillingHistoryModel model) {
+    private BillingHistory Transform(BillingHistoryModel model) throws Exception {
         var billingHistory = new BillingHistory();
         billingHistory.setMeterNumber(model.getMeterNumber());
-        var parameter = model.getValue("0.0.1.0.0.255");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
-        LocalDateTime dateTime = LocalDateTime.parse(parameter.get().getValue(), formatter);
-        billingHistory.setBillingMonth(dateTime);
+        billingHistory.setBillingMonth(model.getDateTime("00 00 01 00 00 ff"));
         billingHistory.setUpdatedAt(LocalDateTime.now());
         billingHistory.setResetMethod(1);
 
-        billingHistory.setActiveEnergyCombinedTotal(0);
-        billingHistory.setActiveEnergyCombinedTotalT1(0);
-        billingHistory.setActiveEnergyCombinedTotalT2(0);
-        billingHistory.setActiveEnergyCombinedTotalT3(0);
-        billingHistory.setActiveEnergyCombinedTotalT4(0);
+        billingHistory.setActiveEnergyCombinedTotal(model.getLongValue("01 00 0F 08 00 FF"));
+        billingHistory.setActiveEnergyCombinedTotalT1(model.getLongValue("01 00 0F 08 01 FF"));
+        billingHistory.setActiveEnergyCombinedTotalT2(model.getLongValue("01 00 0F 08 02 FF"));
+        billingHistory.setActiveEnergyCombinedTotalT3(model.getLongValue("01 00 0F 08 03 FF"));
+        billingHistory.setActiveEnergyCombinedTotalT4(model.getLongValue("01 00 0F 08 04 FF"));
 
-        billingHistory.setActiveEnergyExport(model.getLongValue("01 00 01 08 00 FF"));
-        billingHistory.setActiveEnergyExportT1(0);
-        billingHistory.setActiveEnergyExportT2(0);
-        billingHistory.setActiveEnergyExportT3(0);
-        billingHistory.setActiveEnergyExportT4(0);
+        billingHistory.setActiveEnergyExport(model.getLongValue("01 00 02 08 00 FF"));
+        billingHistory.setActiveEnergyExportT1(model.getLongValue("01 00 02 08 01 FF"));
+        billingHistory.setActiveEnergyExportT2(model.getLongValue("01 00 02 08 02 FF"));
+        billingHistory.setActiveEnergyExportT3(model.getLongValue("01 00 02 08 03 FF"));
+        billingHistory.setActiveEnergyExportT4(model.getLongValue("01 00 02 08 04 FF"));
 
-        billingHistory.setActiveEnergyImport(model.getLongValue("01 00 02 08 00 FF"));
-        billingHistory.setActiveEnergyImportT1(0);
-        billingHistory.setActiveEnergyImportT2(0);
-        billingHistory.setActiveEnergyImportT3(0);
-        billingHistory.setActiveEnergyImportT4(0);
+        billingHistory.setActiveEnergyImport(model.getLongValue("01 00 01 08 00 FF"));
+        billingHistory.setActiveEnergyImportT1(model.getLongValue("01 00 01 08 01 FF"));
+        billingHistory.setActiveEnergyImportT2(model.getLongValue("01 00 01 08 02 FF"));
+        billingHistory.setActiveEnergyImportT3(model.getLongValue("01 00 01 08 03 FF"));
+        billingHistory.setActiveEnergyImportT4(model.getLongValue("01 00 01 08 04 FF"));
 
-        billingHistory.setActiveEnergyNetTotal(0);
-        billingHistory.setActiveEnergyNetTotalT1(0);
-        billingHistory.setActiveEnergyNetTotalT2(0);
-        billingHistory.setActiveEnergyNetTotalT3(0);
-        billingHistory.setActiveEnergyNetTotalT4(0);
+        billingHistory.setActiveEnergyNetTotal(model.getLongValue("01 00 10 08 00 FF"));
+        billingHistory.setActiveEnergyNetTotalT1(model.getLongValue("01 00 10 08 01 FF"));
+        billingHistory.setActiveEnergyNetTotalT2(model.getLongValue("01 00 10 08 02 FF"));
+        billingHistory.setActiveEnergyNetTotalT3(model.getLongValue("01 00 10 08 03 FF"));
+        billingHistory.setActiveEnergyNetTotalT4(model.getLongValue("01 00 10 08 04 FF"));
 
-        billingHistory.setApparentEnergyExport(0);
-        billingHistory.setApparentEnergyExportT1(0);
-        billingHistory.setApparentEnergyExportT2(0);
-        billingHistory.setApparentEnergyExportT3(0);
-        billingHistory.setApparentEnergyExportT4(0);
+        billingHistory.setApparentEnergyExport(model.getLongValue("01 00 0A 08 00 FF"));
+        billingHistory.setApparentEnergyExportT1(model.getLongValue("01 00 0A 08 01 FF"));
+        billingHistory.setApparentEnergyExportT2(model.getLongValue("01 00 0A 08 02 FF"));
+        billingHistory.setApparentEnergyExportT3(model.getLongValue("01 00 0A 08 03 FF"));
+        billingHistory.setApparentEnergyExportT4(model.getLongValue("01 00 0A 08 04 FF"));
 
-        billingHistory.setApparentEnergyImport(0);
-        billingHistory.setApparentEnergyImportT1(0);
-        billingHistory.setApparentEnergyImportT2(0);
-        billingHistory.setApparentEnergyImportT3(0);
-        billingHistory.setApparentEnergyImportT4(0);
+        billingHistory.setApparentEnergyImport(model.getLongValue("01 00 09 08 00 FF"));
+        billingHistory.setApparentEnergyImportT1(model.getLongValue("01 00 09 08 01 FF"));
+        billingHistory.setApparentEnergyImportT2(model.getLongValue("01 00 09 08 02 FF"));
+        billingHistory.setApparentEnergyImportT3(model.getLongValue("01 00 09 08 03 FF"));
+        billingHistory.setApparentEnergyImportT4(model.getLongValue("01 00 09 08 04 FF"));
 
-        billingHistory.setMaxActivePowerExport(0);
-        billingHistory.setMaxActivePowerExportAt(LocalDateTime.now());
-        billingHistory.setMaxActivePowerImport(0);
-        billingHistory.setMaxActivePowerImportAt(LocalDateTime.now());
+        billingHistory.setMaxActivePowerImport(model.getLongValue("01 00 01 06 00 FF"));
+        billingHistory.setMaxActivePowerImportAt(model.getDateTime("01 00 01 06 00 FF"));
+        billingHistory.setMaxActivePowerExport(model.getLongValue("01 00 02 06 00 FF"));
+        billingHistory.setMaxActivePowerExportAt(model.getDateTime("01 00 02 06 00 FF"));
 
-        billingHistory.setMaxApparentPowerExport(0);
-        billingHistory.setMaxApparentPowerExportAt(LocalDateTime.now());
-        billingHistory.setMaxApparentPowerImport(0);
-        billingHistory.setMaxApparentPowerImportAt(LocalDateTime.now());
+        billingHistory.setMaxApparentPowerImport(model.getLongValue("01 00 09 06 00 FF"));
+        billingHistory.setMaxApparentPowerImportAt(model.getDateTime("01 00 09 06 00 FF"));
+        billingHistory.setMaxApparentPowerExport(model.getLongValue("01 00 0A 06 00 FF"));
+        billingHistory.setMaxApparentPowerExportAt(model.getDateTime("01 00 0A 06 00 FF"));
 
         return billingHistory;
     }
