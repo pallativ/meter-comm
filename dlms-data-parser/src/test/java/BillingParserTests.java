@@ -3,10 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
  */
 
-import com.parser.app.models.BillingRecord;
+import com.parser.app.models.BillingHistoryModel;
 import com.parser.app.models.MeterParameter;
-import com.parser.app.services.BillingDataParser;
+import com.parser.app.parsers.BillingDataParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.parser.app.parsers.BillingDataParserImpl;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,12 +64,12 @@ public class BillingParserTests {
     }
 
     private void ParseBilling(String fileName) throws IOException, Exception {
-        var billingParserService = new BillingDataParser(fileName);
-        var result = billingParserService.Parse();
+        var billingParserService = new BillingDataParserImpl();
+        var result = billingParserService.Parse(fileName);
         File file = new File("C:\\Sample.json");
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(file, result);
-        for (BillingRecord billingRecord : result) {
+        for (BillingHistoryModel billingRecord : result) {
             System.out.println("Billing Record:" + billingRecord.getIndex());
             for (MeterParameter meterParameter : billingRecord.getParameters()) {
                 assertNotNull(meterParameter.getCode(), "FileName:" + fileName);
@@ -85,8 +86,8 @@ public class BillingParserTests {
         var successFiles = new ArrayList<String>();
         for (File billingFile : billingFiles) {
             try {
-                var billingParserService = new BillingDataParser(billingFile.getAbsolutePath());
-                var result = billingParserService.Parse();
+                var billingParserService = new BillingDataParserImpl();
+                var result = billingParserService.Parse(billingFile.getAbsolutePath());
                 successFiles.add(billingFile.getAbsolutePath());
             } catch (Exception ex) {
                 failedFiles.add(billingFile.getAbsolutePath());

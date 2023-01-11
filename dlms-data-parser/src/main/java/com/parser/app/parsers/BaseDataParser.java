@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.parser.app.services;
+package com.parser.app.parsers;
 
 import com.parser.app.models.DataPointer;
 import com.parser.app.models.Parameter;
@@ -15,9 +15,9 @@ import org.apache.commons.lang3.NotImplementedException;
  *
  * @author Veera
  */
-public class BaseParserService {
+public class BaseDataParser {
 
-    private static final boolean EnableTraces = false;
+    private static final boolean EnableTraces = true;
 
     public static HashMap<Integer, ArrayList<Parameter>> GetParameters(String framesAsString, boolean errorFlag) throws Exception {
         var completeData = GetDataRecord(framesAsString, errorFlag);
@@ -54,7 +54,7 @@ public class BaseParserService {
     }
 
     private static String GetDataRecord(String framesAsString, boolean errorFlag) {
-        var dataRecords = framesAsString.split("\n");
+        var dataRecords = framesAsString.split("\r\n");
         StringBuilder sb = new StringBuilder();
         for (String dataRecord : dataRecords) {
             String[] record = dataRecord.split(" ");
@@ -148,7 +148,7 @@ public class BaseParserService {
                 default -> {
                     //var temp = Arrays.copyOfRange(bytes, dataPointer.getIndex() - 10, dataPointer.getIndex() + 10);
                     //System.out.println(String.join(" ", temp));
-                    throw new Exception("Invalid data type");
+                    throw new Exception("Invalid data type : " + dataType);
                 }
             }
             dataPointer.setIndex(dataPointer.getIndex() + numberOfExtracted);

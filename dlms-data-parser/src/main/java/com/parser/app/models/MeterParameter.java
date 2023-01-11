@@ -29,7 +29,7 @@ public class MeterParameter {
     }
 
     public String getCode() {
-        return code;
+        return code.toUpperCase();
     }
 
     public void setCode(String Code) {

@@ -1,9 +1,9 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
-package com.parser.app.services;
+package com.parser.app.parsers;
 
-import com.parser.app.models.BillingRecord;
+import com.parser.app.models.BillingHistoryModel;
 import com.parser.app.models.MeterParameter;
 import com.parser.app.models.Parameter;
 import com.parser.app.utils.DlmsObjectConvert;
@@ -16,51 +16,51 @@ import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Veera
  */
-public class BillingDataParser {
+@Service
+public class BillingDataParserImpl implements BillingDataParser {
 
-    private final String mrdFilePath;
-
-    public BillingDataParser(String mrdFilePath) {
-        this.mrdFilePath = mrdFilePath;
-    }
-
-    public ArrayList<BillingRecord> Parse() throws IOException, Exception {
+    @Override
+    public ArrayList<BillingHistoryModel> Parse(String mrdFilePath) throws IOException, Exception {
         String obisCodes = ReadData(mrdFilePath, "OBISCODES");
+        var fileName = new File(mrdFilePath).getName();
+        var meterNumber =  fileName.split("_")[0];
         var bytes = obisCodes.split(" ");
         bytes = Arrays.copyOfRange(bytes, 12, bytes.length - 2);
         obisCodes = String.join(" ", bytes);
-        var obisCodesCollection = BaseParserService.GetObisCodes(obisCodes);
+        var obisCodesCollection = BaseDataParser.GetObisCodes(obisCodes);
 
         String obisCodesData = ReadData(mrdFilePath, "OBISDATA");
-        var dataCollection = BaseParserService.GetParameters(obisCodesData, false);
+        var dataCollection = BaseDataParser.GetParameters(obisCodesData, false);
 
         // This commented for now, to make it functional.
 //        String scalerCodes = ReadData(mrdFilePath, "SCALAROBISCODES");
 //        bytes = scalerCodes.split(" ");
 //        bytes = Arrays.copyOfRange(bytes, 20, bytes.length - 2);
 //        scalerCodes = String.join(" ", bytes);
-//        var scalarCodeCollection = BaseParserService.GetObisCodes(scalerCodes);
+//        var scalarCodeCollection = BaseDataParser.GetObisCodes(scalerCodes);
 //
 //        String scalerCodesData = ReadData(mrdFilePath, "SCALAROBISDATA");
 //        bytes = scalerCodesData.split(" ");
 //        bytes = Arrays.copyOfRange(bytes, 20, bytes.length - 2);
 //        scalerCodesData = String.join(" ", bytes);
-//        var scalarCodeDataCollection = BaseParserService.GetObisCodes(scalerCodesData);
+//        var scalarCodeDataCollection = BaseDataParser.GetObisCodes(scalerCodesData);
         var mergeResult = MergeObisCodes(obisCodesCollection, dataCollection);
         ConvertToReadable(mergeResult);
+        mergeResult.forEach(model -> model.setMeterNumber(meterNumber));
         return mergeResult;
     }
 
     private static String ReadData(String fileName, String xmlTagName) throws IOException {
         File dataFile = new File(fileName);
         String fileData = FileUtils.readFileToString(dataFile, Charset.defaultCharset());
-        var openTag = "<" + xmlTagName + ">\n";
-        var closeTag = "\n</" + xmlTagName + ">";
+        var openTag = "<" + xmlTagName + ">\r\n";
+        var closeTag = "\r\n</" + xmlTagName + ">";
         String obisData = StringUtils.substringBetween(fileData, openTag, closeTag);
         return obisData;
     }
@@ -74,9 +74,9 @@ public class BillingDataParser {
         return String.join(" ", Arrays.copyOfRange(bytes, 12, bytes.length - 2));
     }
 
-    private static ArrayList<BillingRecord> MergeObisCodes(ArrayList<Parameter> obisCodes, HashMap<Integer, ArrayList<Parameter>> billingRecords) {
+    private static ArrayList<BillingHistoryModel> MergeObisCodes(ArrayList<Parameter> obisCodes, HashMap<Integer, ArrayList<Parameter>> billingRecords) {
         Integer recordIndex = 0;
-        var mergeResult = new ArrayList<BillingRecord>();
+        var mergeResult = new ArrayList<BillingHistoryModel>();
         int billingRecordIndex = 1;
         for (Map.Entry<Integer, ArrayList<Parameter>> billingRecord : billingRecords.entrySet()) {
             var billingParameters = new ArrayList<MeterParameter>();
@@ -88,13 +88,13 @@ public class BillingDataParser {
                 meterParameter.setDataType(parameter.getDataType());
                 billingParameters.add(meterParameter);
             }
-            mergeResult.add(new BillingRecord(billingRecordIndex++, billingParameters));
+            mergeResult.add(new BillingHistoryModel(billingRecordIndex++, billingParameters));
         }
         return mergeResult;
     }
 
-    private static void ConvertToReadable(ArrayList<BillingRecord> mergeResult) {
-        for (BillingRecord billingRecord : mergeResult) {
+    private static void ConvertToReadable(ArrayList<BillingHistoryModel> mergeResult) {
+        for (BillingHistoryModel billingRecord : mergeResult) {
             for (MeterParameter meterParameter : billingRecord.getParameters()) {
                 switch (meterParameter.getDataType()) {
                     case 9 -> {

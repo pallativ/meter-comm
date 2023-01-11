@@ -31,6 +31,9 @@ public class BillingHistory {
     @Column(name = "BILLING_MONTH")
     private LocalDateTime billingMonth;
 
+    @Column(name = "RESET_METHOD")
+    private int resetMethod;
+
     @Column(name = "UPDATED_AT")
     private LocalDateTime updatedAt;
 
@@ -484,6 +487,14 @@ public class BillingHistory {
         this.maxApparentPowerExportAt = maxApparentPowerExportAt;
     }
 
+    public int getResetMethod() {
+        return resetMethod;
+    }
+
+    public void setResetMethod(int resetMethod) {
+        this.resetMethod = resetMethod;
+    }
+
     @Override
     public String toString() {
         return "BillingHistory{" + "id=" + id + ",\n"
@@ -529,7 +540,5 @@ public class BillingHistory {
                 + "maxApparentPowerExport=" + maxApparentPowerExport + ", \n"
                 + "maxApparentPowerExportAt=" + maxApparentPowerExportAt + '}';
     }
-
- 
 
 }
