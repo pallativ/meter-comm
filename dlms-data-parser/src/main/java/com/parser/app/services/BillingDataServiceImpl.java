@@ -34,7 +34,7 @@ public class BillingDataServiceImpl implements BillingDataService {
     @Override
     public void Process(String fileName) {
         try {
-            var billingHistoryModels = parser.Parse(fileName);
+            var billingHistoryModels = parser.parse(fileName);
             var list = new ArrayList<BillingHistory>();
             for (BillingHistoryModel billingHistoryModel : billingHistoryModels) {
                 list.add(Transform(billingHistoryModel));

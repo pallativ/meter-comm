@@ -65,7 +65,7 @@ public class BillingParserTests {
 
     private void ParseBilling(String fileName) throws IOException, Exception {
         var billingParserService = new BillingDataParserImpl();
-        var result = billingParserService.Parse(fileName);
+        var result = billingParserService.parse(fileName);
         File file = new File("C:\\Sample.json");
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(file, result);
@@ -87,7 +87,7 @@ public class BillingParserTests {
         for (File billingFile : billingFiles) {
             try {
                 var billingParserService = new BillingDataParserImpl();
-                var result = billingParserService.Parse(billingFile.getAbsolutePath());
+                var result = billingParserService.parse(billingFile.getAbsolutePath());
                 successFiles.add(billingFile.getAbsolutePath());
             } catch (Exception ex) {
                 failedFiles.add(billingFile.getAbsolutePath());

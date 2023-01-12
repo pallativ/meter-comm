@@ -7,7 +7,6 @@ package com.parser.app.parsers;
 import com.parser.app.models.BillingHistoryModel;
 import java.io.IOException;
 import java.util.ArrayList;
-import org.springframework.stereotype.Service;
 
 /**
  *
@@ -15,5 +14,5 @@ import org.springframework.stereotype.Service;
  */
 public interface BillingDataParser {
 
-    public ArrayList<BillingHistoryModel> Parse(String fileName) throws IOException, Exception;
+    public ArrayList<BillingHistoryModel> parse(String fileName) throws IOException, Exception;
 }
