@@ -16,6 +16,9 @@ import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,11 +28,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class BillingDataParserImpl implements BillingDataParser {
 
+    @Autowired
+    private Environment env;
+
     @Override
     public ArrayList<BillingHistoryModel> Parse(String mrdFilePath) throws IOException, Exception {
+
+        // TODO : Fix this issue
+        if (env != null) {
+            var temp = env.getProperty("dlms.data.parser.enableTraces", "false");
+            BaseDataParser.EnableTraces = Boolean.parseBoolean(temp);
+        }
+
         String obisCodes = ReadData(mrdFilePath, "OBISCODES");
         var fileName = new File(mrdFilePath).getName();
-        var meterNumber =  fileName.split("_")[0];
+        var meterNumber = fileName.split("_")[0];
         var bytes = obisCodes.split(" ");
         bytes = Arrays.copyOfRange(bytes, 12, bytes.length - 2);
         obisCodes = String.join(" ", bytes);

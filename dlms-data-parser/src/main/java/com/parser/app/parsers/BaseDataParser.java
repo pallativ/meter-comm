@@ -17,7 +17,7 @@ import org.apache.commons.lang3.NotImplementedException;
  */
 public class BaseDataParser {
 
-    private static final boolean EnableTraces = true;
+    public static boolean EnableTraces = true;
 
     public static HashMap<Integer, ArrayList<Parameter>> GetParameters(String framesAsString, boolean errorFlag) throws Exception {
         var completeData = GetDataRecord(framesAsString, errorFlag);
