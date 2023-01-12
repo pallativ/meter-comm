@@ -20,7 +20,6 @@ public class DlmsDataParserApplication implements CommandLineRunner {
     @Autowired
     private BillingDataService billingDataService;
 
-
     public static void main(String[] args) {
         SpringApplication.run(DlmsDataParserApplication.class, args);
     }

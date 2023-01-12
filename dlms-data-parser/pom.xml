@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.coral</groupId>
     <artifactId>dlms-data-parser</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2</version>
     <name>dlms-data-parser</name>
     <description>Project for parsing the DLMS response data</description>
     <properties>
@@ -44,7 +44,6 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.12.0</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>

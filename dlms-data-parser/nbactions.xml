@@ -52,4 +52,20 @@
                 <exec.appArgs>C:\Users\Veera\source\\repos\MeterComm\MRD\</exec.appArgs>
             </properties>
         </action>
+        <action>
+            <actionName>CUSTOM-package</actionName>
+            <displayName>package</displayName>
+            <goals>
+                <goal>package</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-clean &amp; compile</actionName>
+            <displayName>clean &amp; compile</displayName>
+            <goals>
+                <goal>clean:clean</goal>
+                <goal>&amp;</goal>
+                <goal>compiler:compile</goal>
+            </goals>
+        </action>
     </actions>

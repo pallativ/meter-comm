@@ -18,7 +18,8 @@ import org.apache.commons.lang3.NotImplementedException;
 public class BaseDataParser {
 
     public static boolean EnableTraces = true;
-
+    public static String frameSplitOperator = "\r\n";
+    
     public static HashMap<Integer, ArrayList<Parameter>> GetParameters(String framesAsString, boolean errorFlag) throws Exception {
         var completeData = GetDataRecord(framesAsString, errorFlag);
         var result = ParseArray(completeData);
@@ -54,7 +55,7 @@ public class BaseDataParser {
     }
 
     private static String GetDataRecord(String framesAsString, boolean errorFlag) {
-        var dataRecords = framesAsString.split("\r\n");
+        var dataRecords = framesAsString.split(frameSplitOperator);
         StringBuilder sb = new StringBuilder();
         for (String dataRecord : dataRecords) {
             String[] record = dataRecord.split(" ");

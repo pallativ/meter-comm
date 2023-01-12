@@ -31,6 +31,8 @@ public class BillingDataParserImpl implements BillingDataParser {
     @Autowired
     private Environment env;
 
+    private static String frameSplitOperator = "\r\n";
+
     @Override
     public ArrayList<BillingHistoryModel> Parse(String mrdFilePath) throws IOException, Exception {
 
@@ -38,6 +40,8 @@ public class BillingDataParserImpl implements BillingDataParser {
         if (env != null) {
             var temp = env.getProperty("dlms.data.parser.enableTraces", "false");
             BaseDataParser.EnableTraces = Boolean.parseBoolean(temp);
+            frameSplitOperator = env.getProperty("dlms.data.parser.splitOperator");
+            BaseDataParser.frameSplitOperator = frameSplitOperator;
         }
 
         String obisCodes = ReadData(mrdFilePath, "OBISCODES");
@@ -72,8 +76,8 @@ public class BillingDataParserImpl implements BillingDataParser {
     private static String ReadData(String fileName, String xmlTagName) throws IOException {
         File dataFile = new File(fileName);
         String fileData = FileUtils.readFileToString(dataFile, Charset.defaultCharset());
-        var openTag = "<" + xmlTagName + ">\r\n";
-        var closeTag = "\r\n</" + xmlTagName + ">";
+        var openTag = "<" + xmlTagName + ">" + frameSplitOperator;
+        var closeTag = frameSplitOperator + "</" + xmlTagName + ">";
         String obisData = StringUtils.substringBetween(fileData, openTag, closeTag);
         return obisData;
     }
