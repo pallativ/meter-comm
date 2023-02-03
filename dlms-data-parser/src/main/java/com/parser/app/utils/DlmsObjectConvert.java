@@ -44,19 +44,19 @@ public class DlmsObjectConvert {
 
     public static long ToLong(String[] valueArray) throws NumberFormatException {
         var hexRepresentation = String.join("", valueArray);
-        var binaryRepresetation = getBinary(hexRepresentation);
+        var binaryRepresentation = getBinary(hexRepresentation);
 
-        if (binaryRepresetation.charAt(0) == '1') {
-            return toLongNegative(binaryRepresetation);
+        if (binaryRepresentation.charAt(0) == '1') {
+            return toLongNegative(binaryRepresentation);
         } else {
-            return Long.parseLong(binaryRepresetation, 2);
+            return Long.parseLong(binaryRepresentation, 2);
         }
     }
 
-    private static long toLongNegative(String binaryRepresenation) {
+    private static long toLongNegative(String binaryRepresentation) {
         StringBuilder newValue = new StringBuilder();
-        for (int i = 0; i < binaryRepresenation.length(); i++) {
-            newValue.append(binaryRepresenation.charAt(i) == '1' ? "0" : "1");
+        for (int i = 0; i < binaryRepresentation.length(); i++) {
+            newValue.append(binaryRepresentation.charAt(i) == '1' ? "0" : "1");
         }
         return (Long.parseLong(newValue.toString(), 2) * -1) + 1;
     }

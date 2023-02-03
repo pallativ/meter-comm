@@ -18,7 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author Veera
  */
 @Service
@@ -47,54 +46,55 @@ public class BillingDataServiceImpl implements BillingDataService {
     private BillingHistory Transform(BillingHistoryModel model) throws Exception {
         var billingHistory = new BillingHistory();
         billingHistory.setId(new BillingHistoryId());
+        var scalarValues = ScalarValueService.read();
         billingHistory.getId().setMeterNumber(model.getMeterNumber());
         billingHistory.getId().setBillingMonth(model.getDateTime("00 00 01 00 00 ff"));
         billingHistory.setUpdatedAt(LocalDateTime.now());
 
-        billingHistory.setActiveEnergyCombinedTotal(model.getLongValue("01 00 0F 08 00 FF"));
-        billingHistory.setActiveEnergyCombinedTotalT1(model.getLongValue("01 00 0F 08 01 FF"));
-        billingHistory.setActiveEnergyCombinedTotalT2(model.getLongValue("01 00 0F 08 02 FF"));
-        billingHistory.setActiveEnergyCombinedTotalT3(model.getLongValue("01 00 0F 08 03 FF"));
-        billingHistory.setActiveEnergyCombinedTotalT4(model.getLongValue("01 00 0F 08 04 FF"));
+        billingHistory.setActiveEnergyCombinedTotal(model.getFloat("01 00 0F 08 00 FF", scalarValues));
+        billingHistory.setActiveEnergyCombinedTotalT1(model.getFloat("01 00 0F 08 01 FF", scalarValues));
+        billingHistory.setActiveEnergyCombinedTotalT2(model.getFloat("01 00 0F 08 02 FF", scalarValues));
+        billingHistory.setActiveEnergyCombinedTotalT3(model.getFloat("01 00 0F 08 03 FF", scalarValues));
+        billingHistory.setActiveEnergyCombinedTotalT4(model.getFloat("01 00 0F 08 04 FF", scalarValues));
 
-        billingHistory.setActiveEnergyExport(model.getLongValue("01 00 02 08 00 FF"));
-        billingHistory.setActiveEnergyExportT1(model.getLongValue("01 00 02 08 01 FF"));
-        billingHistory.setActiveEnergyExportT2(model.getLongValue("01 00 02 08 02 FF"));
-        billingHistory.setActiveEnergyExportT3(model.getLongValue("01 00 02 08 03 FF"));
-        billingHistory.setActiveEnergyExportT4(model.getLongValue("01 00 02 08 04 FF"));
+        billingHistory.setActiveEnergyExport(model.getFloat("01 00 02 08 00 FF", scalarValues));
+        billingHistory.setActiveEnergyExportT1(model.getFloat("01 00 02 08 01 FF", scalarValues));
+        billingHistory.setActiveEnergyExportT2(model.getFloat("01 00 02 08 02 FF", scalarValues));
+        billingHistory.setActiveEnergyExportT3(model.getFloat("01 00 02 08 03 FF", scalarValues));
+        billingHistory.setActiveEnergyExportT4(model.getFloat("01 00 02 08 04 FF", scalarValues));
 
-        billingHistory.setActiveEnergyImport(model.getLongValue("01 00 01 08 00 FF"));
-        billingHistory.setActiveEnergyImportT1(model.getLongValue("01 00 01 08 01 FF"));
-        billingHistory.setActiveEnergyImportT2(model.getLongValue("01 00 01 08 02 FF"));
-        billingHistory.setActiveEnergyImportT3(model.getLongValue("01 00 01 08 03 FF"));
-        billingHistory.setActiveEnergyImportT4(model.getLongValue("01 00 01 08 04 FF"));
+        billingHistory.setActiveEnergyImport(model.getFloat("01 00 01 08 00 FF", scalarValues));
+        billingHistory.setActiveEnergyImportT1(model.getFloat("01 00 01 08 01 FF", scalarValues));
+        billingHistory.setActiveEnergyImportT2(model.getFloat("01 00 01 08 02 FF", scalarValues));
+        billingHistory.setActiveEnergyImportT3(model.getFloat("01 00 01 08 03 FF", scalarValues));
+        billingHistory.setActiveEnergyImportT4(model.getFloat("01 00 01 08 04 FF", scalarValues));
 
-        billingHistory.setActiveEnergyNetTotal(model.getLongValue("01 00 10 08 00 FF"));
-        billingHistory.setActiveEnergyNetTotalT1(model.getLongValue("01 00 10 08 01 FF"));
-        billingHistory.setActiveEnergyNetTotalT2(model.getLongValue("01 00 10 08 02 FF"));
-        billingHistory.setActiveEnergyNetTotalT3(model.getLongValue("01 00 10 08 03 FF"));
-        billingHistory.setActiveEnergyNetTotalT4(model.getLongValue("01 00 10 08 04 FF"));
+        billingHistory.setActiveEnergyNetTotal(model.getFloat("01 00 10 08 00 FF", scalarValues));
+        billingHistory.setActiveEnergyNetTotalT1(model.getFloat("01 00 10 08 01 FF", scalarValues));
+        billingHistory.setActiveEnergyNetTotalT2(model.getFloat("01 00 10 08 02 FF", scalarValues));
+        billingHistory.setActiveEnergyNetTotalT3(model.getFloat("01 00 10 08 03 FF", scalarValues));
+        billingHistory.setActiveEnergyNetTotalT4(model.getFloat("01 00 10 08 04 FF", scalarValues));
 
-        billingHistory.setApparentEnergyExport(model.getLongValue("01 00 0A 08 00 FF"));
-        billingHistory.setApparentEnergyExportT1(model.getLongValue("01 00 0A 08 01 FF"));
-        billingHistory.setApparentEnergyExportT2(model.getLongValue("01 00 0A 08 02 FF"));
-        billingHistory.setApparentEnergyExportT3(model.getLongValue("01 00 0A 08 03 FF"));
-        billingHistory.setApparentEnergyExportT4(model.getLongValue("01 00 0A 08 04 FF"));
+        billingHistory.setApparentEnergyExport(model.getFloat("01 00 0A 08 00 FF", scalarValues));
+        billingHistory.setApparentEnergyExportT1(model.getFloat("01 00 0A 08 01 FF", scalarValues));
+        billingHistory.setApparentEnergyExportT2(model.getFloat("01 00 0A 08 02 FF", scalarValues));
+        billingHistory.setApparentEnergyExportT3(model.getFloat("01 00 0A 08 03 FF", scalarValues));
+        billingHistory.setApparentEnergyExportT4(model.getFloat("01 00 0A 08 04 FF", scalarValues));
 
-        billingHistory.setApparentEnergyImport(model.getLongValue("01 00 09 08 00 FF"));
-        billingHistory.setApparentEnergyImportT1(model.getLongValue("01 00 09 08 01 FF"));
-        billingHistory.setApparentEnergyImportT2(model.getLongValue("01 00 09 08 02 FF"));
-        billingHistory.setApparentEnergyImportT3(model.getLongValue("01 00 09 08 03 FF"));
-        billingHistory.setApparentEnergyImportT4(model.getLongValue("01 00 09 08 04 FF"));
+        billingHistory.setApparentEnergyImport(model.getFloat("01 00 09 08 00 FF", scalarValues));
+        billingHistory.setApparentEnergyImportT1(model.getFloat("01 00 09 08 01 FF", scalarValues));
+        billingHistory.setApparentEnergyImportT2(model.getFloat("01 00 09 08 02 FF", scalarValues));
+        billingHistory.setApparentEnergyImportT3(model.getFloat("01 00 09 08 03 FF", scalarValues));
+        billingHistory.setApparentEnergyImportT4(model.getFloat("01 00 09 08 04 FF", scalarValues));
 
-        billingHistory.setMaxActivePowerImport(model.getLongValue("01 00 01 06 00 FF"));
+        billingHistory.setMaxActivePowerImport(model.getFloat("01 00 01 06 00 FF", scalarValues));
         billingHistory.setMaxActivePowerImportAt(model.getDateTime("01 00 01 06 00 FF"));
-        billingHistory.setMaxActivePowerExport(model.getLongValue("01 00 02 06 00 FF"));
+        billingHistory.setMaxActivePowerExport(model.getFloat("01 00 02 06 00 FF", scalarValues));
         billingHistory.setMaxActivePowerExportAt(model.getDateTime("01 00 02 06 00 FF"));
 
-        billingHistory.setMaxApparentPowerImport(model.getLongValue("01 00 09 06 00 FF"));
+        billingHistory.setMaxApparentPowerImport(model.getFloat("01 00 09 06 00 FF", scalarValues));
         billingHistory.setMaxApparentPowerImportAt(model.getDateTime("01 00 09 06 00 FF"));
-        billingHistory.setMaxApparentPowerExport(model.getLongValue("01 00 0A 06 00 FF"));
+        billingHistory.setMaxApparentPowerExport(model.getFloat("01 00 0A 06 00 FF", scalarValues));
         billingHistory.setMaxApparentPowerExportAt(model.getDateTime("01 00 0A 06 00 FF"));
 
         return billingHistory;

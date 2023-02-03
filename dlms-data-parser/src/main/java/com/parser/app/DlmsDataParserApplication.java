@@ -34,8 +34,6 @@ public class DlmsDataParserApplication implements CommandLineRunner {
                 failedFiles.add(billingFile.getAbsolutePath());
             }
         }
-        //var fileName = "C:\\Users\\Veera\\source\\repos\\MeterComm\\MRD\\\\20417406_BILL_2041740603012023225648963_S.MD";
-        //billingDataService.Process(fileName);
     }
 
 }

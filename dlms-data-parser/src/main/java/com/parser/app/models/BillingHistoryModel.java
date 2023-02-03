@@ -7,6 +7,7 @@ package com.parser.app.models;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -54,15 +55,24 @@ public class BillingHistoryModel {
                 .findFirst();
     }
 
-    public Long getLongValue(String obisHexCode) throws Exception {
+    public Float getFloat(String obisHexCode, float scalar) throws Exception {
         var parameter = this.parameters.stream()
                 .filter(model -> model.getCode().equals(obisHexCode.toUpperCase()))
                 .findFirst();
         if (parameter.isEmpty()) {
             throw new Exception("OBIS code not present: " + obisHexCode);
         }
-        return Long.valueOf(parameter.get().getValue());
+        return Long.valueOf(parameter.get().getValue()) * scalar;
     }
+
+    public Float getFloat(String obisHexCode, Map<String, String> scalarValues) throws Exception {
+        Float scalar = 1F;
+        if(scalarValues.containsKey(obisHexCode)){
+            scalar = Float.valueOf(scalarValues.get(obisHexCode));
+        }
+        return getFloat(obisHexCode, scalar);
+    }
+
 
     public LocalDateTime getDateTime(String obisHexCode) throws Exception {
         var parameter = this.parameters.stream()

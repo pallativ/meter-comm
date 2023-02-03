@@ -7,6 +7,12 @@ import com.parser.app.models.BillingHistoryModel;
 import com.parser.app.models.MeterParameter;
 import com.parser.app.models.Parameter;
 import com.parser.app.utils.DlmsObjectConvert;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Service;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -14,12 +20,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Service;
 
 /**
  *
@@ -34,7 +34,7 @@ public class BillingDataParserImpl implements BillingDataParser {
     private static String frameSplitOperator = "\r\n";
 
     @Override
-    public ArrayList<BillingHistoryModel> parse(String mrdFilePath) throws IOException, Exception {
+    public ArrayList<BillingHistoryModel> parse(String mrdFilePath) throws Exception {
 
         // TODO : Fix this issue
         if (env != null) {
@@ -78,8 +78,7 @@ public class BillingDataParserImpl implements BillingDataParser {
         String fileData = FileUtils.readFileToString(dataFile, Charset.defaultCharset());
         var openTag = "<" + xmlTagName + ">" + frameSplitOperator;
         var closeTag = frameSplitOperator + "</" + xmlTagName + ">";
-        String obisData = StringUtils.substringBetween(fileData, openTag, closeTag);
-        return obisData;
+        return StringUtils.substringBetween(fileData, openTag, closeTag);
     }
 
 
