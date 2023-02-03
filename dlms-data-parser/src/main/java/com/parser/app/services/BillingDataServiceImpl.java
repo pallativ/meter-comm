@@ -5,18 +5,17 @@
 package com.parser.app.services;
 
 import com.parser.app.entities.BillingHistory;
+import com.parser.app.entities.BillingHistoryId;
 import com.parser.app.models.BillingHistoryModel;
 import com.parser.app.parsers.BillingDataParser;
 import com.parser.app.repositories.BillingHistoryRepository;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -47,10 +46,10 @@ public class BillingDataServiceImpl implements BillingDataService {
 
     private BillingHistory Transform(BillingHistoryModel model) throws Exception {
         var billingHistory = new BillingHistory();
-        billingHistory.setMeterNumber(model.getMeterNumber());
-        billingHistory.setBillingMonth(model.getDateTime("00 00 01 00 00 ff"));
+        billingHistory.setId(new BillingHistoryId());
+        billingHistory.getId().setMeterNumber(model.getMeterNumber());
+        billingHistory.getId().setBillingMonth(model.getDateTime("00 00 01 00 00 ff"));
         billingHistory.setUpdatedAt(LocalDateTime.now());
-        billingHistory.setResetMethod(1);
 
         billingHistory.setActiveEnergyCombinedTotal(model.getLongValue("01 00 0F 08 00 FF"));
         billingHistory.setActiveEnergyCombinedTotalT1(model.getLongValue("01 00 0F 08 01 FF"));
