@@ -6,20 +6,20 @@ package com.parser.app.parsers;
 
 import com.parser.app.models.DataPointer;
 import com.parser.app.models.Parameter;
+import org.apache.commons.lang3.NotImplementedException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
- *
  * @author Veera
  */
 public class BaseDataParser {
 
     public static boolean EnableTraces = true;
     public static String frameSplitOperator = "\r\n";
-    
+
     public static HashMap<Integer, ArrayList<Parameter>> getParameters(String framesAsString, boolean errorFlag) throws Exception {
         var completeData = getDataRecord(framesAsString, errorFlag);
         var result = parseArray(completeData);

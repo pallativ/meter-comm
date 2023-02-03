@@ -22,7 +22,7 @@ public class ScalarValueService {
             for (String str : dataList) {
                 try {
                     String[] strArr = str.split("=");
-                    if(strArr.length == 2){
+                    if (strArr.length == 2) {
                         map.put(strArr[0], strArr[1].replace(" ", "").replace("\n", ""));
                     }
                 } catch (Exception e) {

@@ -7,7 +7,6 @@ package com.parser.app.models;
 import java.util.ArrayList;
 
 /**
- *
  * @author Veera
  */
 public class MeterParameter {

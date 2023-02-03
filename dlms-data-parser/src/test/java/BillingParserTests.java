@@ -1,18 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.parser.app.models.BillingHistoryModel;
 import com.parser.app.models.MeterParameter;
-import com.parser.app.parsers.BillingDataParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.parser.app.parsers.BillingDataParserImpl;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.File;
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  *
@@ -24,19 +20,19 @@ public class BillingParserTests {
     }
 
     @org.junit.jupiter.api.BeforeAll
-    public static void setUpClass() throws Exception {
+    public static void setUpClass() {
     }
 
     @org.junit.jupiter.api.AfterAll
-    public static void tearDownClass() throws Exception {
+    public static void tearDownClass() {
     }
 
     @org.junit.jupiter.api.BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
     }
 
     @org.junit.jupiter.api.AfterEach
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
 //    @BeforeAll
@@ -58,12 +54,12 @@ public class BillingParserTests {
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
-    public void ParseBillingData() throws IOException, Exception {
+    public void ParseBillingData() throws Exception {
         var fileName = "C:\\Users\\Veera\\source\\repos\\MeterComm\\MRD\\\\20417972_BILL_2041797203012023225516511_S.MD";
         ParseBilling(fileName);
     }
 
-    private void ParseBilling(String fileName) throws IOException, Exception {
+    private void ParseBilling(String fileName) throws Exception {
         var billingParserService = new BillingDataParserImpl();
         var result = billingParserService.parse(fileName);
         File file = new File("C:\\Sample.json");
@@ -84,10 +80,11 @@ public class BillingParserTests {
         var billingFiles = new File("C:\\Users\\Veera\\source\\repos\\MeterComm\\MRD\\").listFiles();
         var failedFiles = new ArrayList<String>();
         var successFiles = new ArrayList<String>();
+        assert billingFiles != null;
         for (File billingFile : billingFiles) {
             try {
                 var billingParserService = new BillingDataParserImpl();
-                var result = billingParserService.parse(billingFile.getAbsolutePath());
+                billingParserService.parse(billingFile.getAbsolutePath());
                 successFiles.add(billingFile.getAbsolutePath());
             } catch (Exception ex) {
                 failedFiles.add(billingFile.getAbsolutePath());

@@ -8,9 +8,8 @@ import com.parser.app.entities.BillingHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- *
  * @author Veera
  */
 public interface BillingHistoryRepository extends JpaRepository<BillingHistory, Long> {
-    
+
 }

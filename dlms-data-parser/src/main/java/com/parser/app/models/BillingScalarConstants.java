@@ -7,7 +7,6 @@ package com.parser.app.models;
 import java.util.List;
 
 /**
- *
  * @author Veera
  */
 public class BillingScalarConstants {

@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- *
  * @author Veera
  */
 public class BillingHistoryModel {
@@ -37,16 +36,16 @@ public class BillingHistoryModel {
         return parameters;
     }
 
+    public void setParameters(ArrayList<MeterParameter> parameters) {
+        this.parameters = parameters;
+    }
+
     public String getMeterNumber() {
         return meterNumber;
     }
 
     public void setMeterNumber(String meterNumber) {
         this.meterNumber = meterNumber;
-    }
-
-    public void setParameters(ArrayList<MeterParameter> parameters) {
-        this.parameters = parameters;
     }
 
     public Optional<MeterParameter> getValue(String obisCode) {
@@ -67,7 +66,7 @@ public class BillingHistoryModel {
 
     public Float getFloat(String obisHexCode, Map<String, String> scalarValues) throws Exception {
         Float scalar = 1F;
-        if(scalarValues.containsKey(obisHexCode)){
+        if (scalarValues.containsKey(obisHexCode)) {
             scalar = Float.valueOf(scalarValues.get(obisHexCode));
         }
         return getFloat(obisHexCode, scalar);

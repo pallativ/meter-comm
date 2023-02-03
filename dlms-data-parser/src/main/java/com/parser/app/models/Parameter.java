@@ -5,17 +5,12 @@
 package com.parser.app.models;
 
 /**
- *
  * @author Veera
  */
 public class Parameter {
 
     private int DataType;
     private String HexValue;
-
-    public void setHexValue(String HexValue) {
-        this.HexValue = HexValue;
-    }
 
     public int getDataType() {
         return DataType;
@@ -29,10 +24,14 @@ public class Parameter {
         return HexValue;
     }
 
+    public void setHexValue(String HexValue) {
+        this.HexValue = HexValue;
+    }
+
     @Override
     public String toString() {
         return "Parameter{" + "DataType=" + DataType + ", HexValue=" + HexValue + '}';
     }
-    
+
 }
 

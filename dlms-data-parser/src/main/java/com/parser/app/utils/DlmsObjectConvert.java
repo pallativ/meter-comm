@@ -4,13 +4,13 @@
  */
 package com.parser.app.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import org.apache.commons.lang3.StringUtils;
 
 
 /**
- *
  * @author Veera
  */
 public class DlmsObjectConvert {

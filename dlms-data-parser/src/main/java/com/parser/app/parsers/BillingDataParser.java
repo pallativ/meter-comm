@@ -5,14 +5,14 @@
 package com.parser.app.parsers;
 
 import com.parser.app.models.BillingHistoryModel;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *
  * @author Veera
  */
 public interface BillingDataParser {
 
-    public ArrayList<BillingHistoryModel> parse(String fileName) throws IOException, Exception;
+    ArrayList<BillingHistoryModel> parse(String fileName) throws Exception;
 }

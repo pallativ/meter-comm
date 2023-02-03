@@ -4,13 +4,97 @@
  */
 package com.parser.app.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "BILLING_DATA")
 public class BillingHistory {
+    @EmbeddedId
+    private BillingHistoryId id;
+    @Column(name = "MODIFIED_DATETIME")
+    private LocalDateTime updatedAt;
+    @Column(name = "ACT_EGY_IMP")
+    private float activeEnergyImport;
+    @Column(name = "ACT_EGY_EXP")
+    private float activeEnergyExport;
+    @Column(name = "ACT_EGY_COMBINED_TOTAL")
+    private float activeEnergyCombinedTotal;
+    @Column(name = "ACT_EGY_NET_TOTAL")
+    private float activeEnergyNetTotal;
+    @Column(name = "ACT_EGY_IMP_RT_1")
+    private float activeEnergyImportT1;
+    @Column(name = "ACT_EGY_IMP_RT_2")
+    private float activeEnergyImportT2;
+    @Column(name = "ACT_EGY_IMP_RT_3")
+    private float activeEnergyImportT3;
+    @Column(name = "ACT_EGY_IMP_RT_4")
+    private float activeEnergyImportT4;
+    @Column(name = "ACT_EGY_EXP_RT_1")
+    private float activeEnergyExportT1;
+    @Column(name = "ACT_EGY_EXP_RT_2")
+    private float activeEnergyExportT2;
+    @Column(name = "ACT_EGY_EXP_RT_3")
+    private float activeEnergyExportT3;
+    @Column(name = "ACT_EGY_EXP_RT_4")
+    private float activeEnergyExportT4;
+    @Column(name = "APP_EGY_IMP")
+    private float apparentEnergyImport;
+    @Column(name = "APP_EGY_EXP")
+    private float apparentEnergyExport;
+    @Column(name = "APP_EGY_IMP_RT_1")
+    private float apparentEnergyImportT1;
+    @Column(name = "APP_EGY_IMP_RT_2")
+    private float apparentEnergyImportT2;
+    @Column(name = "APP_EGY_IMP_RT_3")
+    private float apparentEnergyImportT3;
+    @Column(name = "APP_EGY_IMP_RT_4")
+    private float apparentEnergyImportT4;
+    @Column(name = "APP_EGY_EXP_RT_1")
+    private float apparentEnergyExportT1;
+    @Column(name = "APP_EGY_EXP_RT_2")
+    private float apparentEnergyExportT2;
+    @Column(name = "APP_EGY_EXP_RT_3")
+    private float apparentEnergyExportT3;
+    @Column(name = "APP_EGY_EXP_RT_4")
+    private float apparentEnergyExportT4;
+    @Column(name = "ACT_EGY_COMB_TOT_RT_1")
+    private float activeEnergyCombinedTotalT1;
+    @Column(name = "ACT_EGY_COMB_TOT_RT_2")
+    private float activeEnergyCombinedTotalT2;
+    @Column(name = "ACT_EGY_COMB_TOT_RT_3")
+    private float activeEnergyCombinedTotalT3;
+    @Column(name = "ACT_EGY_COMB_TOT_RT_4")
+    private float activeEnergyCombinedTotalT4;
+    @Column(name = "ACT_EGY_NET_TOT_RT_1")
+    private float activeEnergyNetTotalT1;
+    @Column(name = "ACT_EGY_NET_TOT_RT_2")
+    private float activeEnergyNetTotalT2;
+    @Column(name = "ACT_EGY_NET_TOT_RT_3")
+    private float activeEnergyNetTotalT3;
+    @Column(name = "ACT_EGY_NET_TOT_RT_4")
+    private float activeEnergyNetTotalT4;
+    @Column(name = "MAX_DMD_REG_1_ACT_EGY_IMP")
+    private float maxActivePowerImport;
+    @Column(name = "MAX_DMD_REG_1_ACT_EGY_IMP_TIME")
+    private LocalDateTime maxActivePowerImportAt;
+    @Column(name = "MAX_DMD_REG_6_ACT_EGY_EXP")
+    private float maxActivePowerExport;
+    @Column(name = "MAX_DMD_REG_6_ACT_EGY_EXP_TIME")
+    private LocalDateTime maxActivePowerExportAt;
+    @Column(name = "APP_MD_EXP")
+    private float maxApparentPowerImport;
+    @Column(name = "APP_MD_EXP_OCCURRING_TIME")
+    private LocalDateTime maxApparentPowerImportAt;
+    @Column(name = "APP_MD_IMP")
+    private float maxApparentPowerExport;
+    @Column(name = "APP_MD_IMP_OCCURRING_TIME")
+    private LocalDateTime maxApparentPowerExportAt;
+
     public BillingHistoryId getId() {
         return id;
     }
@@ -18,126 +102,6 @@ public class BillingHistory {
     public void setId(BillingHistoryId id) {
         this.id = id;
     }
-
-    @EmbeddedId
-    private BillingHistoryId id;
-
-    @Column(name = "MODIFIED_DATETIME")
-    private LocalDateTime updatedAt;
-
-    @Column(name = "ACT_EGY_IMP")
-    private float activeEnergyImport;
-
-    @Column(name = "ACT_EGY_EXP")
-    private float activeEnergyExport;
-
-    @Column(name = "ACT_EGY_COMBINED_TOTAL")
-    private float activeEnergyCombinedTotal;
-
-    @Column(name = "ACT_EGY_NET_TOTAL")
-    private float activeEnergyNetTotal;
-
-    @Column(name = "ACT_EGY_IMP_RT_1")
-    private float activeEnergyImportT1;
-
-    @Column(name = "ACT_EGY_IMP_RT_2")
-    private float activeEnergyImportT2;
-
-    @Column(name = "ACT_EGY_IMP_RT_3")
-    private float activeEnergyImportT3;
-
-    @Column(name = "ACT_EGY_IMP_RT_4")
-    private float activeEnergyImportT4;
-
-    @Column(name = "ACT_EGY_EXP_RT_1")
-    private float activeEnergyExportT1;
-
-    @Column(name = "ACT_EGY_EXP_RT_2")
-    private float activeEnergyExportT2;
-
-    @Column(name = "ACT_EGY_EXP_RT_3")
-    private float activeEnergyExportT3;
-
-    @Column(name = "ACT_EGY_EXP_RT_4")
-    private float activeEnergyExportT4;
-
-    @Column(name = "APP_EGY_IMP")
-    private float apparentEnergyImport;
-
-    @Column(name = "APP_EGY_EXP")
-    private float apparentEnergyExport;
-
-    @Column(name = "APP_EGY_IMP_RT_1")
-    private float apparentEnergyImportT1;
-
-    @Column(name = "APP_EGY_IMP_RT_2")
-    private float apparentEnergyImportT2;
-
-    @Column(name = "APP_EGY_IMP_RT_3")
-    private float apparentEnergyImportT3;
-
-    @Column(name = "APP_EGY_IMP_RT_4")
-    private float apparentEnergyImportT4;
-
-    @Column(name = "APP_EGY_EXP_RT_1")
-    private float apparentEnergyExportT1;
-
-    @Column(name = "APP_EGY_EXP_RT_2")
-    private float apparentEnergyExportT2;
-
-    @Column(name = "APP_EGY_EXP_RT_3")
-    private float apparentEnergyExportT3;
-
-    @Column(name = "APP_EGY_EXP_RT_4")
-    private float apparentEnergyExportT4;
-
-    @Column(name = "ACT_EGY_COMB_TOT_RT_1")
-    private float activeEnergyCombinedTotalT1;
-
-    @Column(name = "ACT_EGY_COMB_TOT_RT_2")
-    private float activeEnergyCombinedTotalT2;
-
-    @Column(name = "ACT_EGY_COMB_TOT_RT_3")
-    private float activeEnergyCombinedTotalT3;
-
-    @Column(name = "ACT_EGY_COMB_TOT_RT_4")
-    private float activeEnergyCombinedTotalT4;
-
-    @Column(name = "ACT_EGY_NET_TOT_RT_1")
-    private float activeEnergyNetTotalT1;
-
-    @Column(name = "ACT_EGY_NET_TOT_RT_2")
-    private float activeEnergyNetTotalT2;
-
-    @Column(name = "ACT_EGY_NET_TOT_RT_3")
-    private float activeEnergyNetTotalT3;
-
-    @Column(name = "ACT_EGY_NET_TOT_RT_4")
-    private float activeEnergyNetTotalT4;
-
-    @Column(name = "MAX_DMD_REG_1_ACT_EGY_IMP")
-    private float maxActivePowerImport;
-
-    @Column(name = "MAX_DMD_REG_1_ACT_EGY_IMP_TIME")
-    private LocalDateTime maxActivePowerImportAt;
-
-    @Column(name = "MAX_DMD_REG_6_ACT_EGY_EXP")
-    private float maxActivePowerExport;
-
-    @Column(name = "MAX_DMD_REG_6_ACT_EGY_EXP_TIME")
-    private LocalDateTime maxActivePowerExportAt;
-
-    @Column(name = "APP_MD_EXP")
-    private float maxApparentPowerImport;
-
-    @Column(name = "APP_MD_EXP_OCCURRING_TIME")
-    private LocalDateTime maxApparentPowerImportAt;
-
-    @Column(name = "APP_MD_IMP")
-    private float maxApparentPowerExport;
-
-    @Column(name = "APP_MD_IMP_OCCURRING_TIME")
-    private LocalDateTime maxApparentPowerExportAt;
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;

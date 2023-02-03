@@ -5,7 +5,6 @@
 package com.parser.app.models;
 
 /**
- *
  * @author Veera
  */
 public class ScalarConstant {
@@ -28,7 +27,7 @@ public class ScalarConstant {
     public void setDataIndex(int dataIndex) {
         this.dataIndex = dataIndex;
     }
-        
+
     public String getObisCode() {
         return obisCode;
     }
@@ -57,5 +56,5 @@ public class ScalarConstant {
     public String toString() {
         return "ScalarConstant{" + "obisCode=" + obisCode + ", sclar=" + sclar + ", unit=" + unit + '}';
     }
-    
+
 }

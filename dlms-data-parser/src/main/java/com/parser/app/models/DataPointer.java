@@ -5,7 +5,6 @@
 package com.parser.app.models;
 
 /**
- *
  * @author Veera
  */
 public class DataPointer {
@@ -20,12 +19,12 @@ public class DataPointer {
         return index;
     }
 
-    public int getNoOfObjects() {
-        return noOfObjects;
-    }
-
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    public int getNoOfObjects() {
+        return noOfObjects;
     }
 
     public void setNoOfObjects(int noOfObjects) {

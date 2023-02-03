@@ -4,15 +4,12 @@
  */
 package com.parser.app.services;
 
-import org.springframework.stereotype.Service;
-
 /**
- *
  * @author Veera
  */
 
 public interface BillingDataService {
-    public void Process(String fileName);
+    void Process(String fileName);
 }
 
 

@@ -22,16 +22,58 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
  * @author Veera
  */
 @Service
 public class BillingDataParserImpl implements BillingDataParser {
 
+    private static String frameSplitOperator = "\r\n";
     @Autowired
     private Environment env;
 
-    private static String frameSplitOperator = "\r\n";
+    private static String readData(String fileName, String xmlTagName) throws IOException {
+        File dataFile = new File(fileName);
+        String fileData = FileUtils.readFileToString(dataFile, Charset.defaultCharset());
+        var openTag = "<" + xmlTagName + ">" + frameSplitOperator;
+        var closeTag = frameSplitOperator + "</" + xmlTagName + ">";
+        return StringUtils.substringBetween(fileData, openTag, closeTag);
+    }
+
+    private static ArrayList<BillingHistoryModel> mergeObisCodes(ArrayList<Parameter> obisCodes, HashMap<Integer, ArrayList<Parameter>> billingRecords) {
+        var mergeResult = new ArrayList<BillingHistoryModel>();
+        int billingRecordIndex = 1;
+        for (Map.Entry<Integer, ArrayList<Parameter>> billingRecord : billingRecords.entrySet()) {
+            var billingParameters = new ArrayList<MeterParameter>();
+            int index = 0;
+            for (var parameter : billingRecord.getValue()) {
+                var meterParameter = new MeterParameter();
+                meterParameter.setCode(obisCodes.get(index++).getHexValue());
+                meterParameter.setHexValue(parameter.getHexValue());
+                meterParameter.setDataType(parameter.getDataType());
+                billingParameters.add(meterParameter);
+            }
+            mergeResult.add(new BillingHistoryModel(billingRecordIndex++, billingParameters));
+        }
+        return mergeResult;
+    }
+
+    private static void updateValues(ArrayList<BillingHistoryModel> mergeResult) {
+        for (BillingHistoryModel billingRecord : mergeResult) {
+            for (MeterParameter meterParameter : billingRecord.getParameters()) {
+                switch (meterParameter.getDataType()) {
+                    case 9 -> {
+                        var dateTime = DlmsObjectConvert.toDateTime(meterParameter.getHexValue());
+                        meterParameter.setValue(dateTime);
+                    }
+                    case 6, 5 -> {
+                        var value = DlmsObjectConvert.ToLong(meterParameter.getHexValue().split(" "));
+                        meterParameter.setValue(String.valueOf(value));
+                    }
+                    default -> throw new AssertionError();
+                }
+            }
+        }
+    }
 
     @Override
     public ArrayList<BillingHistoryModel> parse(String mrdFilePath) throws Exception {
@@ -71,51 +113,5 @@ public class BillingDataParserImpl implements BillingDataParser {
         updateValues(mergeResult);
         mergeResult.forEach(model -> model.setMeterNumber(meterNumber));
         return mergeResult;
-    }
-
-    private static String readData(String fileName, String xmlTagName) throws IOException {
-        File dataFile = new File(fileName);
-        String fileData = FileUtils.readFileToString(dataFile, Charset.defaultCharset());
-        var openTag = "<" + xmlTagName + ">" + frameSplitOperator;
-        var closeTag = frameSplitOperator + "</" + xmlTagName + ">";
-        return StringUtils.substringBetween(fileData, openTag, closeTag);
-    }
-
-
-    private static ArrayList<BillingHistoryModel> mergeObisCodes(ArrayList<Parameter> obisCodes, HashMap<Integer, ArrayList<Parameter>> billingRecords) {
-        var mergeResult = new ArrayList<BillingHistoryModel>();
-        int billingRecordIndex = 1;
-        for (Map.Entry<Integer, ArrayList<Parameter>> billingRecord : billingRecords.entrySet()) {
-            var billingParameters = new ArrayList<MeterParameter>();
-            int index = 0;
-            for (var parameter : billingRecord.getValue()) {
-                var meterParameter = new MeterParameter();
-                meterParameter.setCode(obisCodes.get(index++).getHexValue());
-                meterParameter.setHexValue(parameter.getHexValue());
-                meterParameter.setDataType(parameter.getDataType());
-                billingParameters.add(meterParameter);
-            }
-            mergeResult.add(new BillingHistoryModel(billingRecordIndex++, billingParameters));
-        }
-        return mergeResult;
-    }
-
-    private static void updateValues(ArrayList<BillingHistoryModel> mergeResult) {
-        for (BillingHistoryModel billingRecord : mergeResult) {
-            for (MeterParameter meterParameter : billingRecord.getParameters()) {
-                switch (meterParameter.getDataType()) {
-                    case 9 -> {
-                        var dateTime = DlmsObjectConvert.toDateTime(meterParameter.getHexValue());
-                        meterParameter.setValue(dateTime);
-                    }
-                    case 6, 5 -> {
-                        var value = DlmsObjectConvert.ToLong(meterParameter.getHexValue().split(" "));
-                        meterParameter.setValue(String.valueOf(value));
-                    }
-                    default ->
-                        throw new AssertionError();
-                }
-            }
-        }
     }
 }
