@@ -58,7 +58,7 @@ public class DlmsObjectConvert {
         for (int i = 0; i < binaryRepresentation.length(); i++) {
             newValue.append(binaryRepresentation.charAt(i) == '1' ? "0" : "1");
         }
-        return (Long.parseLong(newValue.toString(), 2) * -1) + 1;
+        return (Long.parseLong(newValue.toString(), 2) + 1) * -1;
     }
 
     private static String getBinary(String hex) {

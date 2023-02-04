@@ -55,7 +55,7 @@ public class BillingParserTests {
     //
     @Test
     public void ParseBillingData() throws Exception {
-        var fileName = "C:\\Users\\Veera\\source\\repos\\MeterComm\\MRD\\\\20417972_BILL_2041797203012023225516511_S.MD";
+        var fileName = "C:\\Dev\\MeterComm\\MRD\\20418017_BILL_2041801701022023113427215_S.MD";
         ParseBilling(fileName);
     }
 
@@ -77,7 +77,7 @@ public class BillingParserTests {
 
     @Test
     public void ParserAllFiles() {
-        var billingFiles = new File("C:\\Users\\Veera\\source\\repos\\MeterComm\\MRD\\").listFiles();
+        var billingFiles = new File("C:\\Dev\\MeterComm\\MRD\\").listFiles();
         var failedFiles = new ArrayList<String>();
         var successFiles = new ArrayList<String>();
         assert billingFiles != null;

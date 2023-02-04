@@ -92,10 +92,10 @@ public class BillingDataServiceImpl implements BillingDataService {
         billingHistory.setMaxActivePowerExport(model.getFloat("01 00 02 06 00 FF", scalarValues));
         billingHistory.setMaxActivePowerExportAt(model.getDateTime("01 00 02 06 00 FF"));
 
-        billingHistory.setMaxApparentPowerImport(model.getFloat("01 00 09 06 00 FF", scalarValues));
-        billingHistory.setMaxApparentPowerImportAt(model.getDateTime("01 00 09 06 00 FF"));
-        billingHistory.setMaxApparentPowerExport(model.getFloat("01 00 0A 06 00 FF", scalarValues));
-        billingHistory.setMaxApparentPowerExportAt(model.getDateTime("01 00 0A 06 00 FF"));
+        billingHistory.setMaxApparentPowerExport(model.getFloat("01 00 09 06 00 FF", scalarValues));
+        billingHistory.setMaxApparentPowerExportAt(model.getDateTime("01 00 09 06 00 FF"));
+        billingHistory.setMaxApparentPowerImport(model.getFloat("01 00 0A 06 00 FF", scalarValues));
+        billingHistory.setMaxApparentPowerImportAt(model.getDateTime("01 00 0A 06 00 FF"));
 
         return billingHistory;
     }

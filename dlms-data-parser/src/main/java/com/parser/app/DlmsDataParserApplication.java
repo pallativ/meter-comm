@@ -23,16 +23,18 @@ public class DlmsDataParserApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        var billingFiles = new File(args[0]).listFiles();
-        var failedFiles = new ArrayList<String>();
-        var successFiles = new ArrayList<String>();
-        for (File billingFile : billingFiles) {
-            try {
-                System.out.println("Processing: " + billingFile.getName());
-                billingDataService.Process(billingFile.getAbsolutePath());
-                successFiles.add(billingFile.getAbsolutePath());
-            } catch (Exception ex) {
-                failedFiles.add(billingFile.getAbsolutePath());
+        if (args.length != 0) {
+            var billingFiles = new File(args[0]).listFiles();
+            var failedFiles = new ArrayList<String>();
+            var successFiles = new ArrayList<String>();
+            for (File billingFile : billingFiles) {
+                try {
+                    System.out.println("Processing: " + billingFile.getName());
+                    billingDataService.Process(billingFile.getAbsolutePath());
+                    successFiles.add(billingFile.getAbsolutePath());
+                } catch (Exception ex) {
+                    failedFiles.add(billingFile.getAbsolutePath());
+                }
             }
         }
     }
