@@ -51,7 +51,7 @@ public class BaseDataParser {
     }
 
     private static boolean isLastRecord(String[] bytes) {
-        return bytes[11].equals("01") && bytes[17].equals("70");
+        return bytes[11].equals("01") && (bytes[17].equals("70") || bytes[17].equals("81"));
     }
 
     private static String getDataRecord(String framesAsString, boolean errorFlag) {
@@ -63,6 +63,9 @@ public class BaseDataParser {
             // NOTE: This is based on traces provided by customer traces.
             if (isLastRecord(record)) {
                 from = 18;
+            }
+            if(record[17].equals("81")){
+                from = 19;
             }
             var temp = String.join(" ", Arrays.copyOfRange(record, from, record.length - 2));
             sb.append(temp).append(" ");

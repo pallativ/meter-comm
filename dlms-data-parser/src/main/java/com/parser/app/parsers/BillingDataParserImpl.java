@@ -97,18 +97,20 @@ public class BillingDataParserImpl implements BillingDataParser {
         String obisCodesData = readData(mrdFilePath, "OBISDATA");
         var dataCollection = BaseDataParser.getParameters(obisCodesData, false);
 
-        // This commented for now, to make it functional.
-//        String scalerCodes = ReadData(mrdFilePath, "SCALAROBISCODES");
-//        bytes = scalerCodes.split(" ");
-//        bytes = Arrays.copyOfRange(bytes, 20, bytes.length - 2);
-//        scalerCodes = String.join(" ", bytes);
-//        var scalarCodeCollection = BaseDataParser.getObisCodes(scalerCodes);
-//
-//        String scalerCodesData = ReadData(mrdFilePath, "SCALAROBISDATA");
-//        bytes = scalerCodesData.split(" ");
-//        bytes = Arrays.copyOfRange(bytes, 20, bytes.length - 2);
-//        scalerCodesData = String.join(" ", bytes);
-//        var scalarCodeDataCollection = BaseDataParser.getObisCodes(scalerCodesData);
+        /*
+ This commented for now, to make it functional.
+        String scalarCodes = ReadData(mrdFilePath, "SCALAROBISCODES");
+        bytes = scalarCodes.split(" ");
+        bytes = Arrays.copyOfRange(bytes, 20, bytes.length - 2);
+        scalarCodes = String.join(" ", bytes);
+        var scalarCodeCollection = BaseDataParser.getObisCodes(scalerCodes);
+
+        String scalarCodesData = ReadData(mrdFilePath, "SCALAROBISDATA");
+        bytes = scalarCodesData.split(" ");
+        bytes = Arrays.copyOfRange(bytes, 20, bytes.length - 2);
+        scalarCodesData = String.join(" ", bytes);
+        var scalarCodeDataCollection = BaseDataParser.getObisCodes(scalerCodesData);
+*/
         var mergeResult = mergeObisCodes(obisCodesCollection, dataCollection);
         updateValues(mergeResult);
         mergeResult.forEach(model -> model.setMeterNumber(meterNumber));

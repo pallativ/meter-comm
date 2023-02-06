@@ -13,6 +13,6 @@ public class ConversionTests {
         var result =   DlmsObjectConvert.ToLong(value.split(" "));
         assertEquals(-424, result);
         result = DlmsObjectConvert.ToLong("ff fe 3b 55".split(" "));
-        assertEquals(-4696, result);
+        assertEquals(-115883, result);
     }
 }
