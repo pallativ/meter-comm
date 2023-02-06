@@ -30,7 +30,7 @@ public class BillingDataServiceImpl implements BillingDataService {
     private BillingDataParser parser;
 
     @Override
-    public void Process(String fileName) {
+    public void Process(String fileName) throws Exception {
         try {
             var billingHistoryModels = parser.parse(fileName);
             var list = new ArrayList<BillingHistory>();
@@ -40,6 +40,7 @@ public class BillingDataServiceImpl implements BillingDataService {
             repository.saveAll(list);
         } catch (Exception ex) {
             Logger.getLogger(BillingDataServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
         }
     }
 

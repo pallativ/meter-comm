@@ -9,7 +9,7 @@ package com.parser.app.services;
  */
 
 public interface BillingDataService {
-    void Process(String fileName);
+    void Process(String fileName) throws Exception;
 }
 
 
