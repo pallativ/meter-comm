@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.coral</groupId>
     <artifactId>dlms-data-parser</artifactId>
-    <version>0.0.5</version>
+    <version>0.0.6</version>
     <name>dlms-data-parser</name>
     <description>Project for parsing the DLMS response data</description>
     <properties>
